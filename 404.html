@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12100d">
+<title>Sahifa topilmadi · Shaxmat Plus</title>
+<link rel="icon" href="/shaxmatplus/icon-192.png">
+<script>
+/* Noto‘g‘ri manzil bilan kelganda (masalan /shaxmatplus/xona yoki eski havola),
+   taklif havolasi (?r=) va Google kirish (?gauth=) parametrlarini saqlab, o‘yinga qaytaramiz. */
+(function(){
+  var base='/shaxmatplus/';
+  var q=location.search||'';
+  if(location.pathname.indexOf(base)===0&&location.pathname!==base){
+    setTimeout(function(){location.replace(base+q+location.hash)},2500);
+  }
+})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(90% 60% at 50% 35%,#2c241a,#0d0b09 75%);color:#f4ecdc;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.w{max-width:360px;width:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
+.lg{width:120px;height:120px;filter:drop-shadow(0 12px 26px rgba(227,180,74,.35));animation:f 3s ease-in-out infinite}
+@keyframes f{50%{transform:translateY(-6px)}}
+.n{font-size:64px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,#fff2b8,#e3b44a 45%,#9a6a12);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+h1{font-size:22px}
+p{color:#c9bca3;font-size:14px;line-height:1.5}
+a{display:block;width:100%;padding:15px;border-radius:16px;font-weight:800;font-size:16px;text-decoration:none;color:#1d1406;background:linear-gradient(135deg,#ecc461,#c99a2e);border:2px solid #ffe39a;box-shadow:0 4px 0 #6e4b0c,0 0 18px rgba(236,196,97,.3)}
+a:active{transform:translateY(2px)}
+small{color:#8f846f;font-size:12px}
+</style>
+</head>
+<body>
+<div class="w">
+  <svg class="lg" viewBox="0 0 100 100" aria-hidden="true">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#e3b44a"/><stop offset="1" stop-color="#9a6a12"/></linearGradient></defs>
+    <g fill="url(#g)" stroke="#6b4a0e" stroke-width="1.6">
+      <circle cx="50" cy="9" r="4.5"/><path d="M50 13l11 23H39z"/><rect x="33" y="36" width="34" height="7" rx="3.5"/>
+      <path d="M40 43h20c-1 9-6 13-6 19 0 5 4 8 9 11H37c5-3 9-6 9-11 0-6-5-10-6-19z"/>
+      <rect x="24" y="72" width="52" height="5" rx="2"/><rect x="27" y="77" width="46" height="13" rx="2"/>
+    </g>
+  </svg>
+  <div class="n">404</div>
+  <h1>Bu katak bo‘sh — sahifa topilmadi</h1>
+  <p>Ta‘minotchi bu yerga yetib kelmadi. Havola eskirgan yoki noto‘g‘ri yozilgan bo‘lishi mumkin.</p>
+  <a href="/shaxmatplus/" id="go">♟ O‘yinga qaytish</a>
+  <small>Страница не найдена · Page not found</small>
+</div>
+<script>
+try{var q=location.search||'';document.getElementById('go').href='/shaxmatplus/'+q}catch(e){}
+</script>
+</body>
+</html>
