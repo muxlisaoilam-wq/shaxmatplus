@@ -329,6 +329,13 @@ html[data-th=gold] .bt.pri,html[data-th=gold] .bigplay,html[data-th=gold] .tile.
 .bt.go2{display:flex;align-items:center;justify-content:center;gap:10px;font-size:17px;margin-top:20px;padding:15px}.bt.go2 svg{width:20px;height:20px}
 .olm2{display:flex;align-items:center;gap:12px;padding:12px 14px}.olm2 em{font-style:normal;font-size:12px;font-weight:800;color:var(--acc);text-align:end;max-width:45%}
 .pgc .shint{margin:8px 0 0}
+
+/* ===== v4.4: xona kodi ===== */
+.cbox{background:var(--bg2);border:2px dashed var(--line2);border-radius:18px;padding:12px;margin:4px 0 6px;text-align:center}
+.cbox small{display:block;color:var(--mut);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px}
+.cbox b{display:block;font-size:40px;font-weight:900;letter-spacing:6px;color:var(--pri);font-variant-numeric:tabular-nums}
+.cdi{width:100%;box-sizing:border-box;border:2px solid var(--line2);background:var(--bg2);color:var(--ink);border-radius:16px;padding:14px;font-size:30px;font-weight:900;text-align:center;letter-spacing:6px;margin-top:4px;font-family:inherit}
+.cdi:focus{outline:0;border-color:var(--pri)}
 </style><script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
@@ -832,6 +839,9 @@ ghwait:["Brauzer ochildi. U yerda Google bilan kiring, so‘ng Telegram’ga qay
 ghopen:["Brauzerni ochish","Открыть браузер","Open browser","فتح المتصفح","打开浏览器","ब्राउज़र खोलें"],
 ghpick:["Google akkauntingizni tanlang. Keyin Telegram’ga qaytasiz.","Выберите аккаунт Google, затем вернитесь в Telegram.","Choose your Google account, then return to Telegram.","اختر حساب Google ثم عُد إلى Telegram.","选择你的Google账户，然后返回Telegram。","अपना Google खाता चुनें, फिर Telegram पर लौटें।"],
 ghok:["✅ Tayyor! Endi Telegram’ga qayting — o‘yin o‘zi kiradi.","✅ Готово! Вернитесь в Telegram — игра войдёт сама.","✅ Done! Go back to Telegram — the game will sign in by itself.","✅ تم! عُد إلى Telegram وستسجّل اللعبة الدخول تلقائيًا.","✅ 完成！返回Telegram，游戏会自动登录。","✅ हो गया! Telegram पर लौटें — गेम अपने-आप साइन इन करेगा।"],
+ghpickApp:["Google akkauntingizni tanlang. Keyin Shaxmat Plus ilovasiga qaytasiz.","Выберите аккаунт Google, затем вернитесь в приложение Shaxmat Plus.","Choose your Google account, then return to the Shaxmat Plus app.","اختر حساب Google ثم عُد إلى تطبيق Shaxmat Plus.","选择你的Google账户，然后返回 Shaxmat Plus 应用。","अपना Google खाता चुनें, फिर Shaxmat Plus ऐप पर लौटें।"],
+ghokApp:["✅ Tayyor! Endi Shaxmat Plus ilovasiga qayting — o‘zi kiradi.","✅ Готово! Вернитесь в приложение Shaxmat Plus — вход произойдёт сам.","✅ Done! Go back to the Shaxmat Plus app — you’ll be signed in automatically.","✅ تم! عُد إلى تطبيق Shaxmat Plus وسيتم الدخول تلقائيًا.","✅ 完成！返回 Shaxmat Plus 应用，将自动登录。","✅ हो गया! Shaxmat Plus ऐप पर लौटें — अपने-आप साइन इन हो जाएगा।"],
+ghbackApp:["Ilovaga qaytish","Вернуться в приложение","Back to the app","العودة إلى التطبيق","返回应用","ऐप पर लौटें"],
 ghback:["Telegram’ga qaytish","Вернуться в Telegram","Back to Telegram","العودة إلى Telegram","返回Telegram","Telegram पर लौटें"]});
 function inTG(){const W=window.Telegram&&Telegram.WebApp;return !!(W&&W.initData)}
 let GH=null;
@@ -841,8 +851,10 @@ ref.on('value',s=>{const v=s.val();if(done||!v||!v.t)return;stop();ref.remove().
 (old?db.ref('sp_lb/'+old).remove().catch(()=>{}):Promise.resolve()).then(()=>firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(v.t))).then(x=>{FU=x.user;afterLogin('g',(x.user&&x.user.displayName)||'')},e=>toast(t('noNet')))},()=>{stop();toast(t('noNet'))});
 const url=location.origin+location.pathname+'?gauth='+sid,go=()=>{try{W.openLink(url)}catch(e){window.open(url,'_blank')}};window._ghGo=go;
 sheet(`<h3>${GSVG} ${t('gsign')}</h3><p>${t('ghwait')}</p><button class="bt pri" onclick="_ghGo()">${t('ghopen')}</button><button class="bt" onclick="if(GH)GH();closeOv()">${t('cancel')}</button>`,1);go()}).catch(()=>toast(t('noNet')))}
-function gauthPage(){show('login');['.lgT','.lgM','.lgn','.lgtop'].forEach(s=>{const e=document.querySelector(s);if(e)e.style.display='none'});const h=document.querySelector('.lgh');h.removeAttribute('data-t');h.textContent=t('ghpick');const b=document.querySelector('.lgG');
-b.onclick=()=>{fbLoad().then(fb=>fb.auth().signInWithPopup(new fb.auth.GoogleAuthProvider())).then(r=>{const tk=r&&r.credential&&r.credential.idToken;if(!tk)throw {code:'no-token'};return firebase.database().ref('handoff/'+GAUTH).set({t:tk,at:Date.now()})}).then(()=>{h.textContent=t('ghok');b.style.display='none';const k=document.createElement('button');k.className='lb lgT';k.innerHTML=TSVG+'<span>'+t('ghback')+'</span>';k.onclick=()=>{location.href='https://t.me/'+TG_BOT};b.after(k)},e=>{const c=((e&&e.code)||'').replace('auth/','');if(!/cancelled|closed-by-user/.test(c))toast(t('noNet')+(c?' ('+c+')':''))})}}
+function gauthPage(){const APP=/[?&]app=1/.test(location.search),TGM=/[?&]tg=1/.test(location.search);show('login');['.lgT','.lgM','.lgn','.lgtop'].forEach(s=>{const e=document.querySelector(s);if(e)e.style.display='none'});const h=document.querySelector('.lgh');h.removeAttribute('data-t');h.textContent=TGM?'✈️ '+t('tgsign'):APP?t('ghpickApp'):t('ghpick');const b=document.querySelector('.lgG');
+const done=()=>{h.textContent=APP?t('ghokApp'):t('ghok');b.style.display='none';const w=$('tgw2');if(w)w.remove();const k=document.createElement('button');k.className='lb lgT';k.innerHTML=TSVG+'<span>'+(APP?t('ghbackApp'):t('ghback'))+'</span>';k.onclick=()=>{if(APP){if(history.length>1)history.back();else window.close()}else location.href='https://t.me/'+TG_BOT};b.after(k)};
+if(TGM){b.style.display='none';const d=document.createElement('div');d.id='tgw2';d.style.cssText='display:flex;justify-content:center;min-height:52px;width:100%';b.after(d);window.tgHand=u=>{anonIn().then(()=>firebase.database().ref('handoff/'+GAUTH).set({tg:{id:u.id,n:(u.first_name||u.username||'Telegram').slice(0,16)},at:Date.now()})).then(done,()=>toast(t('noNet')))};const s=document.createElement('script');s.async=true;s.src='https://telegram.org/js/telegram-widget.js?22';s.setAttribute('data-telegram-login',TG_BOT);s.setAttribute('data-size','large');s.setAttribute('data-radius','14');s.setAttribute('data-onauth','tgHand(user)');s.onerror=()=>toast(t('noNet'));d.appendChild(s);return}
+b.onclick=()=>{fbLoad().then(fb=>fb.auth().signInWithPopup(new fb.auth.GoogleAuthProvider())).then(r=>{const tk=r&&r.credential&&r.credential.idToken;if(!tk)throw {code:'no-token'};return firebase.database().ref('handoff/'+GAUTH).set({t:tk,at:Date.now()})}).then(done,e=>{const c=((e&&e.code)||'').replace('auth/','');if(!/cancelled|closed-by-user/.test(c))toast(t('noNet')+(c?' ('+c+')':''))})}}
 try{const W=window.Telegram&&Telegram.WebApp;if(W){W.ready();W.expand()}}catch(e){}
 addEventListener('load',()=>{try{const W=window.Telegram&&Telegram.WebApp;if(W){W.ready();W.expand()}}catch(e){}});
 
@@ -992,6 +1004,36 @@ page('🌐 '+t('onl'),h)}
 function oTc(i){SETUP.otc=i;online()}
 /* ---------- PWA: offlayn ishlash ---------- */
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* ===================== v4.4: xona kodi (havolasiz do'st taklifi) ===================== */
+Object.assign(L3,{
+codeT:["Xona kodi","Код комнаты","Room code","رمز الغرفة","房间码","कमरा कोड"],
+codeInv:["Bu kodni do‘stingizga yuboring — u «Kod bilan kirish»ga yozishi bilan o‘yin boshlanadi.","Отправьте код другу — игра начнётся, как только он введёт его в «Войти по коду».","Send this code to your friend — the game starts once they enter it in “Join with code”.","أرسل هذا الرمز لصديقك وستبدأ المباراة عند إدخاله في «الدخول بالرمز».","把这个房间码发给好友，对方在“输入房间码”中输入后对局开始。","यह कोड दोस्त को भेजें — «कोड से जुड़ें» में डालते ही खेल शुरू होगा।"],
+codeShare:["Kodni ulashish","Поделиться кодом","Share code","مشاركة الرمز","分享房间码","कोड साझा करें"],
+codeEnter:["Kod bilan kirish","Войти по коду","Join with code","الدخول بالرمز","输入房间码","कोड से जुड़ें"],
+codeHint:["6 xonali kodni yozing","Введите 6-значный код","Enter the 6-digit code","أدخل الرمز المكوّن من 6 أرقام","输入6位房间码","6 अंकों का कोड डालें"],
+codeBad:["Kod topilmadi yoki eskirgan","Код не найден или устарел","Code not found or expired","الرمز غير موجود أو منتهي","房间码不存在或已过期","कोड नहीं मिला या पुराना है"],
+codeMsg:["♟ Shaxmat Plus’da men bilan o‘yna!\nXona kodi: #\nOnlayn → «Kod bilan kirish»","♟ Сыграй со мной в Shaxmat Plus!\nКод комнаты: #\nОнлайн → «Войти по коду»","♟ Play me in Shaxmat Plus!\nRoom code: #\nOnline → “Join with code”","♟ العب معي في Shaxmat Plus!\nرمز الغرفة: #\nأونلاين ← «الدخول بالرمز»","♟ 来 Shaxmat Plus 和我下棋！\n房间码：#\n在线 → “输入房间码”","♟ Shaxmat Plus में मेरे साथ खेलो!\nकमरा कोड: #\nऑनलाइन → «कोड से जुड़ें»"],
+join:["Kirish","Войти","Join","دخول","加入","जुड़ें"]});
+const fmtCode=c=>String(c).slice(0,3)+' '+String(c).slice(3);
+function online(){if(SETUP.otc==null)SETUP.otc=1;
+let h=`<div class="sec olm2">${avatarH(40)}<span class="rt"><b>${myName()}</b><small>${t('elo')} ${ST.elo}</small></span><em>${t('onlRule')}</em></div>`;
+h+=lblH(t('tcT'))+segH(OTC.map(([m,s])=>`${m}+${s}`),SETUP.otc,'oTc')+`<p class="shint">${t('min',OTC[SETUP.otc][0])}${OTC[SETUP.otc][1]?' · '+t('inc',OTC[SETUP.otc][1]):''}</p>`;
+h+=`<button class="bt pri go2" onclick="onFind()">${ICO.search}<span>${t('onlFind')}</span></button><button class="bt ic2" onclick="onInvite()">${ICO.link}<span>${t('onlFriend')}</span></button><button class="bt ic2" onclick="codeBox()"><b style="font-size:18px">🔢</b><span>${t('codeEnter')}</span></button><p class="shint">${t('onlNote')}</p>`;
+page('🌐 '+t('onl'),h)}
+function newCode(roomId,n){n=n||0;const c=String(100000+Math.floor(Math.random()*900000)),r=firebase.database().ref('sp_codes/'+c);
+return r.transaction(v=>v?undefined:roomId).then(x=>{if(x.committed&&x.snapshot.val()===roomId){r.onDisconnect().remove();return c}if(n>6)throw new Error('code');return newCode(roomId,n+1)})}
+function dropCode(){try{if(ON&&ON.code){const r=firebase.database().ref('sp_codes/'+ON.code);r.onDisconnect().cancel();r.remove()}}catch(e){}}
+function onInvite(){const tc=OTC[SETUP.otc==null?1:SETUP.otc],p=onlNeed();if(!p)return;
+p.then(()=>createRoom(tc,1)).then(()=>newCode(ON.id)).then(c=>{ON.code=c;ON.ref.child('cd').set(c);codeSheet(c)}).catch(()=>{cancelWait();toast(t('noNet'))})}
+function codeSheet(c){clearInterval(WAIT&&WAIT.iv);WAIT={left:0,code:c};sheet(`<div class="wt"><div class="rad"><i></i><i></i><span>${avatarH(54)}</span></div><h3>${t('onlFriend')}</h3><p>${t('codeInv')}</p><div class="cbox"><small>${t('codeT')}</small><b>${fmtCode(c)}</b></div><button class="bt pri go" onclick="shareCode()">${ICO.link}<span>${t('codeShare')}</span></button><button class="bt" onclick="cancelWait()">${t('cancel')}</button></div>`,1)}
+function shareCode(){const c=WAIT&&WAIT.code;if(!c)return;const msg=t('codeMsg',c),bot='https://t.me/'+TG_BOT,W=window.Telegram&&Telegram.WebApp;
+if(inTG()&&W.openTelegramLink){try{return W.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(bot)+'&text='+encodeURIComponent(msg))}catch(e){}}
+if(navigator.share)navigator.share({title:'Shaxmat Plus',text:msg+'\n'+bot}).catch(()=>{});else{try{navigator.clipboard.writeText(msg+'\n'+bot);toast('✔ '+fmtCode(c))}catch(e){}}}
+function codeBox(){sheet(`<h3>🔢 ${t('codeEnter')}</h3><p>${t('codeHint')}</p><input id="cdi" class="cdi" inputmode="numeric" maxlength="7" autocomplete="off" placeholder="000 000"><button class="bt pri go" onclick="codeJoin()">${ICO.play}<span>${t('join')}</span></button><button class="bt" onclick="closeOv()">${t('cancel')}</button>`);setTimeout(()=>{const e=$('cdi');if(e)e.focus()},200)}
+function codeJoin(){const c=(($('cdi')||{}).value||'').replace(/\D/g,'');if(c.length!==6)return toast(t('codeHint'));const p=onlNeed();if(!p)return;
+p.then(()=>firebase.database().ref('sp_codes/'+c).once('value')).then(s=>{const id=s.val();if(!id||typeof id!=='string')return toast(t('codeBad'));closeOv();return joinTx(id).then(ok=>{if(!ok)toast(t('codeBad'))})}).catch(()=>toast(t('codeBad')))}
+(function(){const _cw=cancelWait;cancelWait=function(){dropCode();_cw()};const _so=startOnl;startOnl=function(id,v,role){if(role=='h')dropCode();else if(v&&v.cd){try{firebase.database().ref('sp_codes/'+v.cd).remove()}catch(e){}}return _so(id,v,role)}})();
+applyLang();
 
 </script>
 </body></html>

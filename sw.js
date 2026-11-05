@@ -1,8 +1,8 @@
-/* Shaxmat Plus — service worker (v4.2)
+/* Shaxmat Plus — service worker (v4.5)
    O‘yin fayllari keshda saqlanadi: internet bo‘lmasa ham ochiladi (bot, ikki kishilik, masalalar).
    index.html avval internetdan olinadi (yangi versiya darhol keladi), bo‘lmasa keshdan.
    Yangi versiya chiqarganda VERSION ni o‘zgartiring — eski kesh o‘chadi. */
-const VERSION = 'shaxmatplus-v4.2';
+const VERSION = 'shaxmatplus-v4.5';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
