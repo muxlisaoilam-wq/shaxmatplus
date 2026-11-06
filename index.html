@@ -336,6 +336,16 @@ html[data-th=gold] .bt.pri,html[data-th=gold] .bigplay,html[data-th=gold] .tile.
 .cbox b{display:block;font-size:40px;font-weight:900;letter-spacing:6px;color:var(--pri);font-variant-numeric:tabular-nums}
 .cdi{width:100%;box-sizing:border-box;border:2px solid var(--line2);background:var(--bg2);color:var(--ink);border-radius:16px;padding:14px;font-size:30px;font-weight:900;text-align:center;letter-spacing:6px;margin-top:4px;font-family:inherit}
 .cdi:focus{outline:0;border-color:var(--pri)}
+/* ===== v4.5: yonib turuvchi Boshlash + doskali Ta'minotchi kartasi ===== */
+:root{--glw:#4fc85a}html[data-th=dark]{--glw:#6fe07a}html[data-th=gold]{--glw:#ffd66b}
+.bigplay,.bt.glw{position:relative;overflow:visible;margin-top:6px}
+.bigplay::after,.bt.glw::after{content:"";position:absolute;inset:-6px;border-radius:28px;border:2px solid var(--glw);box-shadow:0 0 14px var(--glw),0 0 28px color-mix(in srgb,var(--glw) 45%,transparent),inset 0 0 10px color-mix(in srgb,var(--glw) 35%,transparent);pointer-events:none;animation:spGlow 1.5s ease-in-out infinite alternate}
+.bt.glw::after{border-radius:22px}.bt.glw{margin-top:24px}
+@keyframes spGlow{from{opacity:.4}to{opacity:1}}
+.heroB{background:#6b4a0e!important;border:0;padding-bottom:20px;overflow:visible;box-shadow:none;margin:4px 0}
+.heroB .hbg{inset:0 0 4px 0;border-radius:24px;opacity:1;background:linear-gradient(90deg,rgba(8,18,8,.1) 0,rgba(8,18,8,.47) 26%,rgba(8,18,8,.8) 42%,rgba(8,18,8,.88) 100%),repeating-conic-gradient(var(--sqD) 0 25%,var(--sqL) 0 50%) 0 0/44px 44px;box-shadow:inset 0 0 0 2.5px #e3b44a}
+.heroB::after{content:"";position:absolute;inset:-6px;border-radius:30px;border:2px solid #e3b44a;box-shadow:0 0 14px rgba(227,180,74,.85),0 0 28px rgba(227,180,74,.4);pointer-events:none;animation:spGlow 1.5s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){.bigplay::after,.bt.glw::after,.heroB::after{animation:none;opacity:.8}}
 </style><script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
@@ -985,7 +995,7 @@ function segH(items,cur,fn){return `<div class="seg sg2">${items.map((x,i)=>`<bu
 const kingI=c=>`<i class="ki">${pieceSVG(6*c)}</i>`;
 function colSeg(fn){const c=SETUP.col;return segH([kingI(1)+t('white'),'<i class="ki">🎲</i>'+t('rand'),kingI(-1)+t('black')],c===1?0:c===0?1:2,fn)}
 function lvItems(mul){return [0,1,2,3].map(i=>[lvN(i),'Elo '+BOTELO[i],'+'+Math.round(COINW[i]*(mul||1))+' 🪙'])}
-function startBtn(js){return `<button class="bt pri go2" onclick="${js}">${ICO.play}<span>${t('start')}</span></button>`}
+function startBtn(js){return `<button class="bt pri go2 glw" onclick="${js}">${ICO.play}<span>${t('start')}</span></button>`}
 function setup(mode){if(mode=='blitz')return setupBz();SETUP.mode=mode;SETUP.bz=0;SETUP.inc=0;const TM=[0,3,5,10];let h='';
 if(mode=='bot')h+=lblH(t('level'))+rList(lvItems(),SETUP.lvl,'sLvl')+lblH(t('color'))+colSeg('sCol');
 h+=lblH(t('time'))+segH(TM.map(x=>x?t('min',x):'∞'),Math.max(0,TM.indexOf(SETUP.tm)),'sTm');

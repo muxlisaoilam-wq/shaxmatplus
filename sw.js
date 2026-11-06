@@ -2,7 +2,7 @@
    O‘yin fayllari keshda saqlanadi: internet bo‘lmasa ham ochiladi (bot, ikki kishilik, masalalar).
    index.html avval internetdan olinadi (yangi versiya darhol keladi), bo‘lmasa keshdan.
    Yangi versiya chiqarganda VERSION ni o‘zgartiring — eski kesh o‘chadi. */
-const VERSION = 'shaxmatplus-v4.5';
+const VERSION = 'shaxmatplus-v4.6';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
