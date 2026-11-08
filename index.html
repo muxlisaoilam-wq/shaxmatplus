@@ -348,6 +348,167 @@ html[data-th=gold] .bt.pri,html[data-th=gold] .bigplay,html[data-th=gold] .tile.
 .heroB::after{content:"";position:absolute;inset:-6px;border-radius:30px;border:2px solid #e3b44a;box-shadow:0 0 14px rgba(227,180,74,.85),0 0 28px rgba(227,180,74,.4);pointer-events:none;animation:spGlow 1.5s ease-in-out infinite alternate}
 @media (prefers-reduced-motion:reduce){.bigplay::after,.bt.glw::after,.heroB::after{animation:none;opacity:.8}}
 .gpc{color:#6b4a0e}.hart svg{color:rgba(0,0,0,.4)}.hart .h2{color:#7a5410}
+
+/* ===================== v5 PRO: yagona professional dizayn ===================== */
+:root{--frame:#d8ccb4;--frame2:rgba(120,90,40,.35);--ok:#4fa35a;--bad:#d9534f;--rad:18px;--hl:rgba(246,200,70,.45);--sel:rgba(246,200,70,.6);--dot:rgba(20,30,20,.22)}
+html[data-th=dark]{--pri:#4f9e4c;--pri2:#74c06a;--bg:#0f1210;--bg2:#171b18;--card:#1b201c;--ink:#ecf0ea;--mut:#8f9a90;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.11);--frame:#252b26;--frame2:rgba(255,255,255,.12)}
+html[data-th=gold]{--bg:#0e0c0a;--bg2:#17140f;--card:#1c1813;--ink:#f3ead8;--mut:#9b8f7a;--line:rgba(255,232,190,.07);--line2:rgba(255,232,190,.12);--pri:#d6a83c;--pri2:#f1d07a;--acc:#e7b54c;--frame:#2a2219;--frame2:rgba(227,180,74,.38);--shadow:0 10px 28px rgba(0,0,0,.42)}
+html[data-th=gold] body{background:radial-gradient(110% 55% at 50% -5%,#2a2117 0%,#14110d 55%,#0e0c0a 100%)}
+html[data-th=dark] body{background:radial-gradient(110% 55% at 50% -5%,#1d241f 0%,#0f1210 60%)}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;letter-spacing:-.005em}
+h1,h3,.tt,.mtx b,.hx b,.tcard b,.htx b,.brand b{letter-spacing:-.02em}
+.clk,.mhd b,.psv b,.chp b,.stat b,.eb,.coin,.kp b,#spn{font-variant-numeric:tabular-nums}
+
+/* --- sirtlar: 3D chekkalar o'rniga nozik chiziq + yumshoq soya --- */
+.bt,.mbtn,.tile,.chp,.card,.mhd,.si,.lgg button,.kp div,.seg,.sbb,.ib,.olm,.opt.card2,.pstrip button,.lvc,.clg button,.tcg button,.opg button,.sec,.pgc>.shd,.mode{
+ border:1px solid var(--line2)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 6px 18px rgba(0,0,0,.18)!important}
+.card,.tile,.mbtn,.chp,.pstrip button,.sec,.pgc>.shd,.mhd,.mode{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff 6%),var(--card))}
+html[data-th=light] .card,html[data-th=light] .tile,html[data-th=light] .mbtn,html[data-th=light] .chp,html[data-th=light] .pstrip button,html[data-th=light] .sec,html[data-th=light] .mhd,html[data-th=light] .mode{background:var(--card)}
+html[data-th=light] .bt,html[data-th=light] .mbtn,html[data-th=light] .tile,html[data-th=light] .chp,html[data-th=light] .card,html[data-th=light] .ib,html[data-th=light] .pstrip button,html[data-th=light] .sec,html[data-th=light] .mhd{box-shadow:0 1px 2px rgba(40,40,20,.06),0 6px 18px rgba(40,40,20,.07)!important}
+.bt:active,.mbtn:active,.tile:active,.chp:active,.ib:active,.pstrip button:active,.lvc:active,.clg button:active,.tcg button:active,.opg button:active,.sbb:active,.mode:active{transform:scale(.97)!important}
+.bt,.mbtn,.tile,.chp,.ib,.sbb,.mode,.lvc,.bigplay,.mhero,.tcard,.acts .ab{transition:transform .12s ease,background-color .2s,border-color .2s}
+.wrap{gap:12px}
+
+/* --- asosiy (oltin) tugmalar --- */
+html[data-th] .bt.pri,html[data-th] .bigplay,html[data-th] .sbb.buy{border:1px solid color-mix(in srgb,var(--pri2) 70%,#fff)!important;background:linear-gradient(180deg,var(--pri2) 0%,var(--pri) 62%,color-mix(in srgb,var(--pri) 82%,#000) 100%)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.12),0 10px 26px color-mix(in srgb,var(--pri) 30%,transparent)!important;text-shadow:0 1px 0 rgba(255,255,255,.25)}
+html[data-th=light] .bt.pri,html[data-th=light] .bigplay,html[data-th=light] .sbb.buy,html[data-th=dark] .bt.pri,html[data-th=dark] .bigplay,html[data-th=dark] .sbb.buy{text-shadow:none;color:#fff}
+.bigplay::after,.bt.glw::after,.heroB::after{display:none!important;animation:none!important}
+.bigplay{position:relative;overflow:hidden!important;border-radius:20px;padding:18px;font-size:21px;font-weight:800;letter-spacing:.01em;margin-top:2px}
+.bigplay::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
+@keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+.bigplay svg{width:24px;height:24px}
+.bt{border-radius:14px;padding:14px;font-size:15.5px;font-weight:700;background:var(--bg2)}
+.bt.red{background:color-mix(in srgb,var(--bad) 14%,var(--card))!important;color:#ff8a80;border-color:color-mix(in srgb,var(--bad) 35%,transparent)!important;box-shadow:none!important}
+html[data-th=light] .bt.red{color:var(--bad)}
+.bt.glw{margin-top:20px}
+
+/* --- bosh sahifa --- */
+.bl{border:1px solid var(--line2);box-shadow:none;border-radius:13px;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 90%,#fff 10%),var(--card))}
+.brand b{font-weight:800}.brand small{letter-spacing:.02em}
+.lang button.on,#langs button.on{background:color-mix(in srgb,var(--pri) 18%,var(--card));color:var(--pri2);border:1px solid color-mix(in srgb,var(--pri) 45%,transparent)}
+html[data-th=light] #langs button.on{color:var(--pri)}
+#langs button{border-radius:12px;padding:8px 12px;font-weight:700}
+.chp{border-radius:999px;font-weight:700}.chp b{font-weight:800}
+.heroB{background:var(--card)!important;border:1px solid color-mix(in srgb,var(--pri) 35%,transparent)!important;border-radius:22px;padding:18px 16px;min-height:112px;margin:2px 0;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 34px rgba(0,0,0,.3)!important;overflow:hidden!important}
+.heroB .hbg{inset:0;border-radius:0;opacity:.95;background:linear-gradient(90deg,transparent 0,color-mix(in srgb,var(--card) 70%,transparent) 30%,var(--card) 52%),repeating-conic-gradient(color-mix(in srgb,var(--sqD) 55%,var(--card)) 0 25%,color-mix(in srgb,var(--sqL) 18%,var(--card)) 0 50%) 0 0/28px 28px!important;box-shadow:none!important}
+.htx small{color:var(--pri);letter-spacing:.14em;font-size:10.5px}.htx b{font-size:22px;font-weight:800;color:var(--ink)}.htx span{color:var(--mut);opacity:1;font-size:13px}
+.hpc{width:78px;height:78px}
+.tile{border-radius:16px;padding:14px 6px 12px;font-weight:700;font-size:13px;gap:7px}
+.tile svg{color:var(--pri);width:23px;height:23px}
+html[data-th] .tile.hot{box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 6px 18px rgba(0,0,0,.18)!important;background:linear-gradient(180deg,color-mix(in srgb,var(--pri) 22%,var(--card)),color-mix(in srgb,var(--pri) 10%,var(--card)))!important;color:var(--ink)!important;border-color:color-mix(in srgb,var(--pri) 45%,transparent)!important;text-shadow:none}
+html[data-th=gold] .tile.hot,html[data-th=gold] .tile.hot svg{color:var(--ink)!important}.tile.hot svg{color:var(--pri)!important}
+html[data-th=gold] .tile.hot svg{color:var(--pri2)!important}
+.mbtn{border-radius:16px;font-weight:700;font-size:14.5px}
+.stat b,.mhd b{font-weight:800}.stat small{letter-spacing:.02em}
+.mode .mi{border-radius:14px}
+
+/* --- rejimlar sahifasi: bir xil uslubdagi kartalar, rang — faqat aksent --- */
+.mhero,.tcard{--ac:#5fae5a;color:var(--ink)!important;border:1px solid color-mix(in srgb,var(--ac) 32%,var(--line2))!important;
+ background:radial-gradient(130% 120% at 100% 0%,color-mix(in srgb,var(--ac) 26%,transparent) 0%,transparent 58%),linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff 6%),var(--card))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 12px 30px rgba(0,0,0,.22)!important;border-radius:22px}
+html[data-th=light] .mhero,html[data-th=light] .tcard{box-shadow:0 1px 2px rgba(40,40,20,.06),0 8px 22px rgba(40,40,20,.08)!important}
+.mhero.c1{--ac:#d6a83c}.tcard.c2{--ac:#5b8fd9}.tcard.c3{--ac:#ee8a3a}.mhero.c4{--ac:#9a72e8}
+html[data-th=light] .mhero.c1{--ac:#2f6b2f}
+.mhero::before,.tcard::before{display:none}
+.mhero:active,.tcard:active{transform:scale(.98)}
+.hx b,.tcard b{text-shadow:none;font-weight:800;font-size:20px}.tcard b{font-size:18px}
+.hx small,.tcard small{color:var(--mut);opacity:1}
+.hti{background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 88%,#fff),color-mix(in srgb,var(--ac) 82%,#000))!important;border:1px solid color-mix(in srgb,var(--ac) 60%,#fff)!important;color:#fff;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 16px color-mix(in srgb,var(--ac) 35%,transparent)!important;width:44px;height:44px;border-radius:13px}
+.mhero .mchips i,.tcard .mchips i{background:color-mix(in srgb,var(--ac) 14%,var(--bg2))!important;color:var(--ink)!important;border:1px solid color-mix(in srgb,var(--ac) 28%,transparent)!important;font-weight:700}
+.mhero .mchips i.g,.tcard .mchips i.g{color:var(--acc)!important}
+.hart svg{fill:color-mix(in srgb,var(--ink) 88%,transparent);stroke:rgba(0,0,0,.35);filter:drop-shadow(0 10px 16px rgba(0,0,0,.35));opacity:.92}
+.hart .h2{fill:var(--pri2);stroke:color-mix(in srgb,var(--pri) 60%,#000)}
+.live{background:color-mix(in srgb,var(--ok) 12%,var(--bg2));border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);color:var(--ink);letter-spacing:.12em}
+.tipc{border-style:dashed!important}.tipc b{color:var(--pri)}
+.pstrip button{border-radius:16px}.psn small,.psv small{letter-spacing:.03em}
+
+/* --- yuqori panel / sarlavha --- */
+.ib{width:40px;height:40px;border-radius:12px;background:var(--card)}
+.ib svg{width:20px;height:20px}
+.gbar .tt{font-weight:700;font-size:15.5px;letter-spacing:-.01em}
+
+/* --- o'yin ekrani --- */
+#game{gap:9px}
+.pl{border:1px solid var(--line2)!important;outline:0!important;box-shadow:none!important;background:var(--card);border-radius:14px;padding:7px 8px 7px 8px;position:relative;transition:border-color .2s,background .2s}
+.pl.act{border-color:color-mix(in srgb,var(--pri) 55%,transparent)!important;background:linear-gradient(90deg,color-mix(in srgb,var(--pri) 10%,var(--card)),var(--card))}
+.pl.act::before{content:"";position:absolute;left:-1px;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:var(--pri)}
+.av{width:34px;height:34px;border-radius:10px}.av.w{background:#f4f0e6;border:1px solid rgba(0,0,0,.1)}.av.k{background:#2a2e2b;border:1px solid rgba(255,255,255,.08)}
+.pn b{font-size:14px;font-weight:700}
+.clk{font-family:ui-monospace,"SF Mono","Roboto Mono",Menlo,monospace;font-weight:700;font-size:19px;padding:6px 10px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);min-width:78px;letter-spacing:-.02em}
+.clk.run{background:linear-gradient(180deg,var(--pri2),var(--pri));color:#1b1307;border-color:transparent}
+html[data-th=light] .clk.run{color:#fff}
+.clk.low{background:var(--bad);color:#fff;animation:lowp 1s ease-in-out infinite alternate}@keyframes lowp{to{box-shadow:0 0 0 4px color-mix(in srgb,var(--bad) 30%,transparent)}}
+.think{color:var(--pri)}
+/* taxta ramkasi */
+#bframe{column-gap:7px;row-gap:7px;margin-left:-11px}
+#bframe #bw{width:min(calc(100vw - 58px),500px,calc((100vh - 350px) * .8));width:min(calc(100vw - 58px),500px,calc((100dvh - 350px) * .8))}
+@media (max-height:760px){#game{gap:6px}.pl{padding:4px 6px}.av{width:30px;height:30px}.av svg{width:24px;height:24px}.clk{font-size:16px;padding:4px 8px;min-width:66px}.mvl{min-height:30px;padding:2px 6px}.acts{padding:5px 4px 4px}.acts .ai{height:28px}.acts .ab span{font-size:10px}#game .gbar .ib{width:36px;height:36px}
+#bframe #bw{width:min(calc(100vw - 58px),500px,calc((100vh - 312px) * .8));width:min(calc(100vw - 58px),500px,calc((100dvh - 312px) * .8))}}
+#bw{border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.45),0 0 0 5px var(--frame),0 0 0 6px var(--frame2),0 22px 48px rgba(0,0,0,.45)}
+html[data-th=light] #bw{box-shadow:0 0 0 1px rgba(0,0,0,.12),0 0 0 5px var(--frame),0 0 0 6px var(--frame2),0 18px 40px rgba(60,50,20,.22)}
+#bd{box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+#rk span,#fl span{font-size:10.5px;font-weight:700;color:var(--mut);opacity:.85}
+.sq .dt{width:26%;height:26%;margin:-13% 0 0 -13%;background:var(--dot)}
+.sq .rg{inset:4%;border:4px solid var(--dot)}
+.sq.hi::before{background:rgba(80,150,255,.42);box-shadow:inset 0 0 0 2px rgba(80,150,255,.8)}
+.sq.se::before{box-shadow:inset 0 0 0 2px rgba(255,220,100,.55)}
+.pc svg{filter:drop-shadow(0 2px 1.5px rgba(0,0,0,.28))}
+.barw{opacity:.82}.barw line{stroke:#f5a623;stroke-width:2.1}.barw polygon{fill:#f5a623}
+/* yurishlar ro'yxati */
+.mvl{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:4px 6px;min-height:34px;gap:2px;align-items:center}
+.mvl:empty{opacity:.6}
+.mvl span{background:none!important;box-shadow:none!important;font-weight:600;font-size:13px;padding:4px 7px;border-radius:8px;color:var(--ink);opacity:.82}
+.mvl span.n{color:var(--mut);opacity:1;padding:4px 1px 4px 6px;font-weight:600}
+.mvl span.cur{background:color-mix(in srgb,var(--pri) 24%,transparent)!important;color:var(--ink);opacity:1;font-weight:800;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pri) 50%,transparent)!important}
+#game>#plT{margin-top:auto}
+/* asboblar paneli */
+.acts{margin-top:auto;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff 6%),var(--card));border:1px solid var(--line2);border-radius:18px;padding:8px 4px 6px;gap:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 22px rgba(0,0,0,.22)}
+html[data-th=light] .acts{background:var(--card);box-shadow:0 6px 18px rgba(40,40,20,.08)}
+.acts .ab{color:var(--mut)!important;font-size:11px;font-weight:600;gap:3px;padding:2px 0!important}
+.acts .ai{width:44px;height:34px;border-radius:11px;background:none!important;box-shadow:none!important;border:0!important;color:var(--ink)}
+.acts .ai svg{color:currentColor!important;width:22px;height:22px}
+.acts .ab:active .ai{background:color-mix(in srgb,var(--ink) 8%,transparent)!important}
+.acts .ih{color:var(--pri2)}html[data-th=light] .acts .ih{color:#c98a12}.acts .ir{color:#ef7a70}
+.acts .ab.cd .ai{background:none!important}.acts .ab.cd .ai::before{inset:-3px -1px;border-radius:13px;padding:2.5px}
+.acts .cnt{top:-3px;right:calc(50% - 30px);font-size:10px;min-width:17px;height:17px;border-width:2px;border-color:var(--card)!important}
+.acts .cds{top:-3px;left:calc(50% - 32px);border-color:var(--card)!important}
+.acts .ab:disabled{opacity:.35}
+
+/* --- pastki oynalar (sheet) --- */
+#ov{background:rgba(6,6,4,.55);backdrop-filter:blur(8px) saturate(120%);-webkit-backdrop-filter:blur(8px) saturate(120%)}
+html[data-th=light] #ov{background:rgba(30,30,20,.32)}
+.sh{background:var(--card);border:1px solid var(--line2);border-bottom:0;border-radius:24px 24px 0 0;box-shadow:0 -20px 50px rgba(0,0,0,.35);padding-top:8px}
+@media (min-width:600px){.sh{border-radius:24px;border-bottom:1px solid var(--line2)}}
+.sh .grab{width:36px;height:4px;background:var(--line2);margin-bottom:12px}
+.sh h3{font-weight:800;font-size:19px;letter-spacing:-.02em}
+.lbl{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--mut)}
+.seg{border-radius:13px}.seg button{font-weight:600}.seg button.on{font-weight:700}
+.seg.sg2 button.on{box-shadow:0 1px 3px rgba(0,0,0,.18),inset 0 0 0 1px color-mix(in srgb,var(--pri) 70%,transparent)!important}
+.rlist button{border-radius:12px;padding:12px}
+.rlist button.on{background:color-mix(in srgb,var(--pri) 11%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pri) 30%,transparent)}
+.rd{border-width:2px;border-color:var(--line2)}
+.rlist em{font-weight:700}
+.lvc.on,.clg button.on,.tcg button.on,.opg button.on,.si.on{border-color:color-mix(in srgb,var(--pri) 75%,transparent)!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pri) 50%,transparent),0 0 0 3px color-mix(in srgb,var(--pri) 14%,transparent)!important}
+.opt{font-weight:500}
+.sw{background:color-mix(in srgb,var(--ink) 16%,transparent)}
+.prm button{border:1px solid var(--line2);border-radius:14px}
+.lr{border-bottom-color:var(--line)}
+.res .big{font-size:52px}.res h3{font-weight:800}
+
+/* --- xabar (toast) --- */
+#toast{opacity:0;transition:transform .25s,opacity .25s;background:color-mix(in srgb,var(--card) 92%,#fff 8%);color:var(--ink);border:1px solid var(--line2);box-shadow:0 12px 30px rgba(0,0,0,.35);font-weight:600;border-radius:12px;max-width:calc(100vw - 32px);text-align:center}
+
+#toast.on{opacity:1}
+/* --- kirish va yuklanish --- */
+.lb{border-radius:14px;padding:14px;font-size:15.5px;font-weight:700}
+.lgG{box-shadow:0 8px 22px rgba(0,0,0,.3)}.lgT{background:linear-gradient(180deg,#36b4f2,#1f9ae0);box-shadow:0 8px 22px rgba(31,154,224,.25)}
+.lgM{border:1px solid rgba(255,230,180,.22)}
+.lgl{border:1px solid rgba(255,230,180,.2);font-weight:700}
+.spb{height:6px;border-radius:4px}.spb i{border-radius:4px}
+#spn{font-size:14px;font-weight:700;letter-spacing:.06em}
 </style><script async src="https://telegram.org/js/telegram-web-app.js"></script>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
@@ -697,7 +858,11 @@ shopHint:["Tangalar: botni yutib va masalalar yechib to‘planadi","Монеты
 BD:[["Yashil","Yog‘och","Okean","Shifer","Atirgul","Marmar","Tun","Oltin"],["Зелёная","Дерево","Океан","Сланец","Роза","Мрамор","Ночь","Золото"],["Green","Wood","Ocean","Slate","Rose","Marble","Night","Gold"],["أخضر","خشب","محيط","أردواز","وردي","رخام","ليل","ذهبي"],["绿色","木纹","海洋","石板","玫瑰","大理石","夜色","黄金"],["हरा","लकड़ी","सागर","स्लेट","गुलाब","संगमरमर","रात","सोना"]],
 PS:[["Klassik","Oltin","Muz","Neon","Yog‘och","Yoqut"],["Классика","Золото","Лёд","Неон","Дерево","Рубин"],["Classic","Gold","Ice","Neon","Wood","Ruby"],["كلاسيك","ذهبي","جليد","نيون","خشب","ياقوت"],["经典","黄金","冰晶","霓虹","木纹","红宝石"],["क्लासिक","सोना","बर्फ़","नियॉन","लकड़ी","माणिक"]],
 };
-const LG=['uz','ru','en','ar','zh','hi'],LGN=['O‘zbek','Русский','English','العربية','中文','हिन्दी'];
+/* 7-til: yangi o'zbek alifbosi (oʻ→ö, gʻ→ğ, sh→ş, ch→ç) — eski lotin matnidan avtomatik olinadi */
+const yA=s=>s.replace(/([OoGg])[ʻ‘'’`]/g,(m,c)=>({O:'Ö',o:'ö',G:'Ğ',g:'ğ'})[c]).replace(/S[Hh]/g,'Ş').replace(/C[Hh]/g,'Ç').replace(/sh/g,'ş').replace(/ch/g,'ç');
+const yD=x=>typeof x=='string'?yA(x):Array.isArray(x)?x.map(yD):x&&typeof x=='object'?Object.fromEntries(Object.entries(x).map(([k,v])=>[k,yD(v)])):x;
+for(const k in L3){const v=L3[k];if(Array.isArray(v)&&v.length===6)v.push(yD(v[0]))}
+const LG=['uz','ru','en','ar','zh','hi','uz'],LGN=['O‘zbek (eski)','Русский','English','العربية','中文','हिन्दी','Özbek (yangi)'],LGO=[0,6,1,2,3,4,5],LGC=i=>i==6?'ÖZ':LG[i].toUpperCase();
 
 let ST={lg:0,th:'gold',bd:'green',ps:'classic',snd:1,vib:1,co:1,dots:1,st:{},pz:0,coins:0,elo:1200,own:{b:['green'],p:['classic']},login:null,nm:'',upd:0};
 try{Object.assign(ST,JSON.parse(localStorage.getItem('sp_st')||'{}'))}catch(e){}
@@ -706,8 +871,8 @@ const t=(k,...a)=>{let s=L3[k]?(L3[k][ST.lg]!=null?L3[k][ST.lg]:L3[k][2]):k;a.fo
 const lvN=i=>(L3.lv[ST.lg]||L3.lv[2])[i];
 function applyLook(){const h=document.documentElement;h.dataset.th=ST.th;const bc=(BDS[ST.bd]||BDS.green);h.style.setProperty('--sqL',bc[0]);h.style.setProperty('--sqD',bc[1]);h.classList.toggle('nocoord',!ST.co);h.lang=LG[ST.lg];h.dir=ST.lg==3?'rtl':'ltr';
 document.querySelector('meta[name=theme-color]').content=ST.th=='dark'?'#121613':ST.th=='gold'?'#12100d':'#f3efe6'}
-function applyLang(){applyLook();document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));const l=$('langs');if(l){l.innerHTML='';const b=document.createElement('button');b.className='on';b.textContent='🌐 '+LG[ST.lg].toUpperCase();b.onclick=langBox;l.appendChild(b)}const lc=$('lgcur');if(lc)lc.textContent=LGN[ST.lg];try{homeChips()}catch(e){}}
-function langBox(){sheet(`<h3>${t('lang')}</h3><div class="lgg">${LGN.map((x,i)=>`<button class="${i==ST.lg?'on':''}" onclick="setLang(${i})">${x}</button>`).join('')}</div>`)}
+function applyLang(){applyLook();document.querySelectorAll('[data-t]').forEach(e=>e.textContent=t(e.dataset.t));const l=$('langs');if(l){l.innerHTML='';const b=document.createElement('button');b.className='on';b.textContent='🌐 '+LGC(ST.lg);b.onclick=langBox;l.appendChild(b)}const lc=$('lgcur');if(lc)lc.textContent=LGN[ST.lg];try{homeChips()}catch(e){}}
+function langBox(){sheet(`<h3>${t('lang')}</h3><div class="lgg">${LGO.map(i=>`<button class="${i==ST.lg?'on':''}" onclick="setLang(${i})">${LGN[i]}</button>`).join('')}</div>`)}
 function setLang(i){ST.lg=i;save();applyLang();homeUI();if(G&&$('game').classList.contains('on'))renderAll();closeOv()}
 /* ---------- ovoz va tebranish ---------- */
 let AC=null;function tone(f,d,ty,v){if(!ST.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.18,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
@@ -760,9 +925,7 @@ d.onclick=()=>tap(i);bd.appendChild(d)}
 const pc=$('pcs');pc.innerHTML='';for(let i=0;i<80;i++){const x=pos.b[i];if(!x)continue;const [vr,vc]=boardXY(i),e=document.createElement('div');e.className='pc';e.style.left=vc*12.5+'%';e.style.top=vr*10+'%';e.innerHTML=pieceSVG(x);
 if(anim&&anim.t==i){const [fr,fc]=boardXY(anim.f);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition=anim.slow?'transform .5s cubic-bezier(.3,.7,.3,1)':'';e.style.transform=''}))}
 if(anim&&anim.ca&&anim.rt==i){const [fr,fc]=boardXY(anim.rf);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition=anim.slow?'transform .5s cubic-bezier(.3,.7,.3,1)':'';e.style.transform=''}))}
-pc.appendChild(e)}
-if(live&&lm&&lm.b&&G.mode=='bot'){const [fr,fc]=boardXY(lm.f),[tr,tc]=boardXY(lm.t),x1=fc*10+5,y1=fr*10+5,x2=tc*10+5,y2=tr*10+5,dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,ex=x2-ux*2.2,ey=y2-uy*2.2,hx=ex-ux*4.2,hy=ey-uy*4.2,px=-uy*2.6,py=ux*2.6;
-const sv=`<svg class="barw${anim&&anim.slow?' an':''}" viewBox="0 0 80 100"><line x1="${x1+ux*2}" y1="${y1+uy*2}" x2="${hx}" y2="${hy}"/><polygon points="${ex},${ey} ${hx+px},${hy+py} ${hx-px},${hy-py}"/></svg>`;pc.insertAdjacentHTML('beforeend',sv)}}
+pc.appendChild(e)}}
 function posAt(k){return k+1<G.hist.length?G.hist[k+1].p:G.pos}
 function capsOf(pos,col){/* col rangidagi o'yinchi yegan figuralar (raqib figuralari) */const start={1:8,2:2,3:2,4:2,5:1,7:4},cnt={};for(let i=0;i<80;i++){const x=pos.b[i];if(x&&Math.sign(x)===-col){const ty=Math.abs(x);cnt[ty]=(cnt[ty]||0)+1}}
 const out=[];[5,2,4,3,7,1].forEach(ty=>{const n=Math.max(0,(start[ty]||0)-(cnt[ty]||0));for(let k=0;k<n;k++)out.push(ty)});return out}
@@ -834,7 +997,7 @@ function statsBox(){const S=ST.st;const r=(a,b)=>`<div class="opt"><span>${a}</s
 sheet(`<h3>${t('stats')}</h3>${r('🏆 '+t('elo'),ST.elo)}${r('🪙 '+t('coins'),ST.coins||0)}${r(t('games'),S.g||0)}${r(t('wins'),S.w||0)}${r(t('draws'),S.d||0)}${r(t('losses'),S.l||0)}${[0,1,2,3].map(i=>r('🤖 '+lvN(i)+' — '+t('wins'),S['w'+i]||0)).join('')}${r(t('streak'),S.bs||0)}${r(t('pvpG'),S.pv||0)}${r(t('puzS'),S.ps||0)}<button class="bt pri" onclick="closeOv()">${t('close')}</button>`)}
 /* ===================== v3: do'kon, reyting, kirish ===================== */
 /* taxtalar: [och, to'q, narx] */
-const BDS={green:['#f7f4e3','#458236',0],wood:['#f0d9b5','#b58863',100],ocean:['#e6eef5','#5b84a8',150],slate:['#dfe3e8','#6b7685',150],rose:['#fbeaea','#c26a7a',200],marble:['#f6f5f1','#a2a6ad',300],night:['#93a6c4','#2d3b58',300],gold:['#fbefc9','#c2922a',500]};
+const BDS={green:['#ecebd2','#6f9a4e',0],wood:['#f0d9b5','#b58863',100],ocean:['#e6eef5','#5b84a8',150],slate:['#dfe3e8','#6b7685',150],rose:['#fbeaea','#c26a7a',200],marble:['#f6f5f1','#a2a6ad',300],night:['#93a6c4','#2d3b58',300],gold:['#fbefc9','#c2922a',500]};
 const BDK=Object.keys(BDS);
 /* figura to'plamlari: w/b = [ichi, chizig'i, ko'z], c = narx */
 const PSET={classic:{w:['#fbfaf5','#2b302c','#2b302c'],b:['#2b302c','#0d100e','#f3efe6'],c:0},
