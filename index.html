@@ -77,6 +77,7 @@ h1{margin:6px 0 0;font-size:30px;letter-spacing:-.5px}h1 span{color:var(--pri)}
 .co{position:absolute;font-size:10px;font-weight:800;opacity:.75;z-index:1;pointer-events:none}.co.f{right:3px;bottom:1px}.co.r{left:3px;top:2px}
 .sq.l .co{color:var(--sqD)}.sq.d .co{color:var(--sqL)}html.nocoord .co{display:none}
 #pcs{position:absolute;inset:0;pointer-events:none}
+.barw{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;opacity:.78}.barw line{stroke:#ff9d1c;stroke-width:2.3;stroke-linecap:round}.barw polygon{fill:#ff9d1c}.barw.an{animation:barIn .3s .45s both}@keyframes barIn{from{opacity:0}to{opacity:.78}}
 .pc{position:absolute;width:12.5%;height:10%;display:flex;align-items:center;justify-content:center;transition:transform .2s cubic-bezier(.3,.7,.3,1);z-index:3}
 .pc svg{width:88%;height:88%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
 .pc.cap0{animation:pout .2s forwards}@keyframes pout{to{opacity:0;transform:scale(.4)}}
@@ -500,8 +501,91 @@ function nmx(s,depth,alpha,beta,ply){SD.nodes++;if((SD.nodes&1023)===0&&performa
 const L=legal(s,s.turn);if(!L.length)return inCheck(s,s.turn)?-100000+ply:0;if(s.half>=100)return 0;
 if(depth<=0)return qs(s,alpha,beta,4);mvOrder(s,L);let best=-1e9;
 for(const m of L){const u=make(s,m);const v=-nmx(s,depth-1,-beta,-alpha,ply+1);unmake(s,m,u);if(SD.stop)return 0;if(v>best)best=v;if(v>alpha)alpha=v;if(alpha>=beta)break}return best}
+/* ===== KUCHLI DVIGATEL (Qiyin / Usta) =====
+   PVS + xotira jadvali (Zobrist), null-move, LMR, killer/history tartiblash, shah kengaytmasi, takrorlanishni sezish. */
+const EV=[0,100,500,320,330,950,0,150],PHW=[0,0,2,1,1,4,0,0];
+const ZB=(()=>{let x=0x2545F491;const r=()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return x|0};const a=new Int32Array(15*80*2),e=new Int32Array(81*2),c=new Int32Array(64*2);for(let i=0;i<a.length;i++)a[i]=r();for(let i=0;i<e.length;i++)e[i]=r();for(let i=0;i<c.length;i++)c[i]=r();return {a,e,c,t1:r(),t2:r()}})();
+let ZH1=0,ZH2=0;
+function zh(s){let h1=0,h2=0;const b=s.b,A=ZB.a;for(let i=0;i<80;i++){const x=b[i];if(x){const k=((x+7)*80+i)<<1;h1^=A[k];h2^=A[k+1]}}const e=(s.ep+1)<<1,c=(s.cf&63)<<1;h1^=ZB.e[e]^ZB.c[c];h2^=ZB.e[e+1]^ZB.c[c+1];if(s.turn===1){h1^=ZB.t1;h2^=ZB.t2}ZH1=h1;ZH2=h2}
+const TTN=1<<19,TTM=TTN-1,TK=new Int32Array(TTN),TV=new Int32Array(TTN),TMV=new Int32Array(TTN),TD=new Int8Array(TTN),TF=new Int8Array(TTN);
+const HIS=new Int32Array(6400),KL1=new Int32Array(130),KL2=new Int32Array(130),S1=new Int32Array(1200),S2=new Int32Array(1200);let SP=0,ROOT=null;
+const wMax=new Int8Array(8),wMin=new Int8Array(8),bMax=new Int8Array(8),bMin=new Int8Array(8),wCnt=new Int8Array(8),bCnt=new Int8Array(8);
+const mcode=m=>m.f*1000+m.t*10+(m.pr||0);
+/* baholash: oq nuqtai nazaridan hisoblab, yuradigan tomonga o'giriladi */
+function evx(s){const b=s.b;let mg=0,eg=0,ph=0,wk=-1,bk=-1,wbp=0,bbp=0;
+wMax.fill(-1);bMax.fill(-1);wMin.fill(99);bMin.fill(99);wCnt.fill(0);bCnt.fill(0);
+for(let i=0;i<80;i++){const x=b[i];if(!x)continue;const r=i>>3,c=i&7;
+if(x===P){wCnt[c]++;if(r>wMax[c])wMax[c]=r;if(r<wMin[c])wMin[c]=r}else if(x===-P){bCnt[c]++;if(r>bMax[c])bMax[c]=r;if(r<bMin[c])bMin[c]=r}
+else if(x===K)wk=i;else if(x===-K)bk=i;else{const t=x>0?x:-x;ph+=PHW[t];if(t===B){if(x>0)wbp++;else bbp++}}}
+for(let i=0;i<80;i++){const x=b[i];if(!x)continue;const t=x>0?x:-x,col=x>0?1:-1,r=i>>3,c=i&7,adv=col===1?9-r:r;let m=EV[t],e=EV[t];
+const ek=col===1?bk:wk,er=ek>>3,ec=ek&7;
+if(t===P){m+=adv*5+(c>1&&c<6?adv*3:0);e+=adv*7;const own=col===1?wCnt:bCnt;
+if(own[c]>1){m-=10;e-=18}if((c===0||!own[c-1])&&(c===7||!own[c+1])){m-=12;e-=14}
+let pas=true;for(let f=c-1;f<=c+1;f++){if(f<0||f>7)continue;if(col===1?bMin[f]<r:wMax[f]>r){pas=false;break}}
+if(pas){m+=adv*adv;e+=adv*adv*3+(b[i-8*col]===0?adv*3:0)}}
+else if(t===F){m+=adv*6;e+=adv*10;const ar=r-col;if(ar>=0&&ar<10){if(c>0&&b[ar*8+c-1]===0)m+=3;if(c<7&&b[ar*8+c+1]===0)m+=3}}
+else if(t===N){let mob=0;for(const[d1,d2]of KN){const a=r+d1,q=c+d2;if(a>=0&&a<10&&q>=0&&q<8){const y=b[a*8+q];if(!y||(y>0)!==(col>0))mob++}}
+const cd=Math.abs(4.5-r)+Math.abs(3.5-c);m+=(6-cd)*6+(mob-4)*4;e+=(6-cd)*3+(mob-4)*4;if(ek>=0)m+=(8-Math.max(Math.abs(er-r),Math.abs(ec-c)))*2}
+else if(t===K)continue;
+else{const D=t===R?ORT:t===B?DIA:KG;let mob=0;for(const[d1,d2]of D){let a=r+d1,q=c+d2;while(a>=0&&a<10&&q>=0&&q<8){const y=b[a*8+q];if(!y){mob++}else{if((y>0)!==(col>0))mob++;break}a+=d1;q+=d2}}
+const cd=Math.abs(4.5-r)+Math.abs(3.5-c),kd=ek>=0?8-Math.max(Math.abs(er-r),Math.abs(ec-c)):0;
+if(t===B){m+=(mob-6)*5+(6-cd)*2;e+=(mob-6)*5}
+else if(t===R){m+=(mob-7)*2;e+=(mob-7)*4;const own=col===1?wCnt:bCnt,opp=col===1?bCnt:wCnt;if(!own[c]){if(!opp[c]){m+=25;e+=15}else{m+=12;e+=8}}if(adv===8){m+=20;e+=30}m+=kd*2}
+else{m+=(mob-14);e+=(mob-14)*2+(6-cd)*3;m+=kd*4}}
+if(col===1){mg+=m;eg+=e}else{mg-=m;eg-=e}}
+/* shohlar */
+for(const col of[1,-1]){const k=col===1?wk:bk;if(k<0)continue;const r=k>>3,c=k&7,adv=col===1?9-r:r,cd=Math.abs(4.5-r)+Math.abs(3.5-c);let m=0,e=(5-cd)*12;
+if(adv===0){m+=(c<=2||c>=6)?30:c===4?5:0}else m-=adv*15;
+for(let f=c-1;f<=c+1;f++){if(f<0||f>7)continue;for(let k2=1;k2<=2;k2++){const rr=r-col*k2;if(rr<0||rr>9)continue;const y=b[rr*8+f];if(y===P*col||y===F*col){m+=k2===1?12:6;break}}
+const own=col===1?wCnt:bCnt;if(!own[f])m-=f===c?22:10}
+if(col===1){mg+=m;eg+=e}else{mg-=m;eg-=e}}
+if(wbp>=2){mg+=30;eg+=50}if(bbp>=2){mg-=30;eg-=50}
+if(ph>24)ph=24;const sc=((mg*ph+eg*(24-ph))/24)|0;return sc*s.turn+12}
+function hasPcs(s,col){const b=s.b;for(let i=0;i<80;i++){const x=b[i]*col;if(x>1&&x!==K&&x!==F)return true}return false}
+function ordS(s,m,ttm,ply){if(ttm&&mcode(m)===ttm)return 1e8;if(m.cap)return 1e7+EV[Math.abs(m.cap)]*10-EV[Math.abs(s.b[m.f])];if(m.pr)return 9e6+EV[m.pr];const c=mcode(m);if(c===KL1[ply])return 8e6;if(c===KL2[ply])return 7e6;return HIS[m.f*80+m.t]}
+function sortM(s,L,ttm,ply){const sc=L.map(m=>ordS(s,m,ttm,ply));const ix2=L.map((_,i)=>i).sort((a,b)=>sc[b]-sc[a]);return ix2.map(i=>L[i])}
+function tchk(){if((++SD.nodes&2047)===0&&performance.now()>SD.deadline)SD.stop=true;return SD.stop}
+function qsx(s,a,bt,ply){if(tchk())return 0;const st=evx(s);if(ply>=90)return st;if(st>=bt)return st;if(st>a)a=st;
+const L=sortM(s,pseudo(s,s.turn,true),0,ply);for(const m of L){if(!m.pr&&m.cap&&st+EV[Math.abs(m.cap)]+200<a)continue;
+const u=make(s,m);if(inCheck(s,-s.turn)){unmake(s,m,u);continue}const v=-qsx(s,-bt,-a,ply+1);unmake(s,m,u);if(SD.stop)return 0;if(v>=bt)return v;if(v>a)a=v}return a}
+function srch(s,d,a,bt,ply,nul){if(tchk())return 0;zh(s);const h1=ZH1,h2=ZH2;
+if(ply>0){if(s.half>=100)return 0;for(let i=SP-2;i>=0&&i>=SP-s.half;i-=2)if(S1[i]===h1&&S2[i]===h2)return 0;
+if(-100000+ply>=bt)return -100000+ply;if(100000-ply<=a)return 100000-ply}
+const chk=inCheck(s,s.turn);if(chk&&ply<40)d++;if(d<=0)return qsx(s,a,bt,ply);if(ply>=100)return evx(s);
+const idx=h1&TTM;let ttm=0;if(TK[idx]===h2){ttm=TMV[idx];if(ply>0&&TD[idx]>=d){let v=TV[idx];if(v>90000)v-=ply;else if(v<-90000)v+=ply;const f=TF[idx];if(f===0||(f===1&&v>=bt)||(f===2&&v<=a))return v}}
+const pv=bt-a>1;let st=-1e9;
+if(!pv&&!chk&&ply>0){st=evx(s);if(d<=3&&Math.abs(bt)<90000&&st-110*d>=bt)return st;
+if(nul&&d>=3&&st>=bt&&hasPcs(s,s.turn)){const ep=s.ep;s.ep=-1;s.turn=-s.turn;S1[SP]=0;S2[SP]=0;SP++;const Rr=d>=7?4:3;const v=-srch(s,d-Rr,-bt,-bt+1,ply+1,false);SP--;s.turn=-s.turn;s.ep=ep;if(SD.stop)return 0;if(v>=bt)return v>90000?bt:v}}
+const fut=!pv&&!chk&&d<=2&&st>-1e8&&st+(d===1?200:400)<=a;
+const L=sortM(s,pseudo(s,s.turn,false),ttm,ply);let best=-1e9,bm=null,n=0;const a0=a;
+for(const m of L){const u=make(s,m);if(inCheck(s,-s.turn)){unmake(s,m,u);continue}n++;
+const quiet=!m.cap&&!m.pr,gc=inCheck(s,s.turn);
+if(fut&&quiet&&!gc&&n>1){unmake(s,m,u);continue}
+S1[SP]=h1;S2[SP]=h2;SP++;let v;
+if(n===1)v=-srch(s,d-1,-bt,-a,ply+1,true);
+else{let r=0;if(d>=3&&n>3&&quiet&&!chk&&!gc){r=1+(n>9?1:0)+(d>=7?1:0);if(pv)r--;if(r<0)r=0}
+v=-srch(s,d-1-r,-a-1,-a,ply+1,true);if(!SD.stop&&v>a&&r>0)v=-srch(s,d-1,-a-1,-a,ply+1,true);if(!SD.stop&&v>a&&v<bt)v=-srch(s,d-1,-bt,-a,ply+1,true)}
+SP--;unmake(s,m,u);if(SD.stop)return 0;
+if(v>best){best=v;bm=m;if(ply===0)ROOT=m;if(v>a){a=v;if(a>=bt){if(quiet){const c=mcode(m);if(KL1[ply]!==c){KL2[ply]=KL1[ply];KL1[ply]=c}HIS[m.f*80+m.t]+=d*d;if(HIS[m.f*80+m.t]>6e6)for(let i=0;i<6400;i++)HIS[i]>>=1}break}}}}
+if(!n)return chk?-100000+ply:0;
+let sv=best;if(sv>90000)sv+=ply;else if(sv<-90000)sv-=ply;
+if(TK[idx]!==h2||d>=TD[idx]||best>=bt){TK[idx]=h2;TV[idx]=sv;TMV[idx]=bm?mcode(bm):0;TD[idx]=d>127?127:d;TF[idx]=best>=bt?1:best>a0?0:2}
+return best}
+function botStrong(s0,ms,hist,maxD,noise){maxD=maxD||60;const s=cloneP(s0),LL=legal(s,s.turn);if(!LL.length)return null;if(LL.length===1)return LL[0];
+SP=0;for(const p of hist||[]){if(SP>=1000)break;zh(p);S1[SP]=ZH1;S2[SP]=ZH2;SP++}
+KL1.fill(0);KL2.fill(0);for(let i=0;i<6400;i++)HIS[i]>>=2;
+const t0=performance.now();SD={deadline:t0+ms,stop:false,nodes:0};let best=null,prev=0;
+let dd=0;for(let d=1;d<=maxD;d++){let v,lo=-1e9,hi=1e9,w=35;if(d>=4){lo=prev-w;hi=prev+w}
+for(;;){ROOT=null;v=srch(s,d,lo,hi,0,false);if(SD.stop)break;if(v<=lo){w*=4;lo=w>1500?-1e9:prev-w}else if(v>=hi){w*=4;hi=w>1500?1e9:prev+w;if(ROOT)best=ROOT}else break}
+if(SD.stop)break;if(ROOT)best=ROOT;prev=v;dd=d;if(Math.abs(v)>90000&&d>=5)break;if(performance.now()-t0>ms*.5)break}
+if(!best)best=LL[0];
+/* xilma-xillik: deyarli teng yurishlar orasidan tasodifiy tanlash (qo'pol xatosiz) */
+if(noise&&dd>=2&&Math.abs(prev)<90000){SD={deadline:performance.now()+ms*.6,stop:false,nodes:0};const ok=[];
+for(const m of LL){const u=make(s,m);S1[SP]=0;S2[SP]=0;SP++;const v=-srch(s,dd-1,-1e9,-(prev-noise)+1,1,true);SP--;unmake(s,m,u);if(SD.stop)break;if(v>=prev-noise)ok.push(m)}
+if(!SD.stop&&ok.length)best=ok[Math.floor(Math.random()*ok.length)]}
+const c=mcode(best);return LL.find(m=>mcode(m)===c)||LL[0]}
 /* daraja: 0 Oson, 1 O'rta, 2 Qiyin, 3 Usta */
-function botMove(s0,lvl){const s=cloneP(s0),L=mvOrder(s,legal(s,s.turn));if(!L.length)return null;
+function botMove(s0,lvl,hist){if(lvl>=1)return lvl===1?botStrong(s0,800,hist,5,15):botStrong(s0,lvl===3?2500:1500,hist);const s=cloneP(s0),L=mvOrder(s,legal(s,s.turn));if(!L.length)return null;
 const cfg=[{d:1,t:250,noise:160},{d:2,t:700,noise:50},{d:3,t:1500,noise:12},{d:6,t:2600,noise:0}][lvl]||{d:2,t:700,noise:40};
 SD={deadline:performance.now()+cfg.t,stop:false,nodes:0};let best=L[0],scores=null;
 for(let d=1;d<=cfg.d;d++){const sc=[];let alpha=-1e9;
@@ -674,9 +758,11 @@ const m=tg.find(z=>z.t==i);if(m){const e=document.createElement('i');e.className
 d.onclick=()=>tap(i);bd.appendChild(d)}
 {const rk=$('rk'),fl=$('fl');rk.innerHTML='';fl.innerHTML='';for(let v=0;v<10;v++){const s=document.createElement('span');s.textContent=G.flip?v+1:10-v;rk.appendChild(s)}for(let v=0;v<8;v++){const s=document.createElement('span');s.textContent='abcdefgh'[G.flip?7-v:v];fl.appendChild(s)}}
 const pc=$('pcs');pc.innerHTML='';for(let i=0;i<80;i++){const x=pos.b[i];if(!x)continue;const [vr,vc]=boardXY(i),e=document.createElement('div');e.className='pc';e.style.left=vc*12.5+'%';e.style.top=vr*10+'%';e.innerHTML=pieceSVG(x);
-if(anim&&anim.t==i){const [fr,fc]=boardXY(anim.f);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition='';e.style.transform=''}))}
-if(anim&&anim.ca&&anim.rt==i){const [fr,fc]=boardXY(anim.rf);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition='';e.style.transform=''}))}
-pc.appendChild(e)}}
+if(anim&&anim.t==i){const [fr,fc]=boardXY(anim.f);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition=anim.slow?'transform .5s cubic-bezier(.3,.7,.3,1)':'';e.style.transform=''}))}
+if(anim&&anim.ca&&anim.rt==i){const [fr,fc]=boardXY(anim.rf);e.style.transition='none';e.style.transform=`translate(${(fc-vc)*100}%,${(fr-vr)*100}%)`;requestAnimationFrame(()=>requestAnimationFrame(()=>{e.style.transition=anim.slow?'transform .5s cubic-bezier(.3,.7,.3,1)':'';e.style.transform=''}))}
+pc.appendChild(e)}
+if(live&&lm&&lm.b&&G.mode=='bot'){const [fr,fc]=boardXY(lm.f),[tr,tc]=boardXY(lm.t),x1=fc*10+5,y1=fr*10+5,x2=tc*10+5,y2=tr*10+5,dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,ex=x2-ux*2.2,ey=y2-uy*2.2,hx=ex-ux*4.2,hy=ey-uy*4.2,px=-uy*2.6,py=ux*2.6;
+const sv=`<svg class="barw${anim&&anim.slow?' an':''}" viewBox="0 0 80 100"><line x1="${x1+ux*2}" y1="${y1+uy*2}" x2="${hx}" y2="${hy}"/><polygon points="${ex},${ey} ${hx+px},${hy+py} ${hx-px},${hy-py}"/></svg>`;pc.insertAdjacentHTML('beforeend',sv)}}
 function posAt(k){return k+1<G.hist.length?G.hist[k+1].p:G.pos}
 function capsOf(pos,col){/* col rangidagi o'yinchi yegan figuralar (raqib figuralari) */const start={1:8,2:2,3:2,4:2,5:1,7:4},cnt={};for(let i=0;i<80;i++){const x=pos.b[i];if(x&&Math.sign(x)===-col){const ty=Math.abs(x);cnt[ty]=(cnt[ty]||0)+1}}
 const out=[];[5,2,4,3,7,1].forEach(ty=>{const n=Math.max(0,(start[ty]||0)-(cnt[ty]||0));for(let k=0;k<n;k++)out.push(ty)});return out}
@@ -698,16 +784,16 @@ if((G.mode=='bot'||G.mode=='onl')&&pos.turn!==G.pc)return;if(G.puz&&pos.turn!==G
 const x=pos.b[i];if(G.sel>=0){const ms=legalFrom(pos,G.sel).filter(m=>m.t==i);if(ms.length){if(ms[0].pr)return promoAsk(ms);return doMove(ms[0])}}
 if(x&&Math.sign(x)===pos.turn){G.sel=G.sel===i?-1:i;G.hintM=null;buzz(8);renderBoard();return}if(G.sel>=0){G.sel=-1;renderBoard()}}
 function promoAsk(ms){const col=G.pos.turn;sheet(`<h3>${t('promo')}</h3><div class="prm">${ms.map((m,k)=>`<button onclick="closeOv();doMove(PRMS[${k}])">${pieceSVG(m.pr*col)}</button>`).join('')}</div>`,1);window.PRMS=ms}
-function doMove(m){const pos=G.pos,s=san(pos,m),before=snap(pos),cap=m.cap||m.ep!=null;
+function doMove(m){const pos=G.pos,s=san(pos,m),before=snap(pos),cap=m.cap||m.ep!=null,bm=G.mode=='bot'&&!G.puz&&pos.turn!==G.pc?1:0;
 if(G.puz){return puzMove(m,s)}
-G.hist.push({p:unsnap(before),s,m:{f:m.f,t:m.t}});make(pos,m);G.last={f:m.f,t:m.t};G.sel=-1;G.hintM=null;
+G.hist.push({p:unsnap(before),s,m:{f:m.f,t:m.t,b:bm}});make(pos,m);G.last={f:m.f,t:m.t,b:bm};G.sel=-1;G.hintM=null;
 if(G.tm&&G.inc&&G.hist.length>1){const mi=pos.turn===1?1:0;G.clk[mi]+=G.inc*1000}if(G.mode=='onl'&&!m._r)onPush(m);const k=posKey(pos);G.reps[k]=(G.reps[k]||0)+1;
 const chk=inCheck(pos,pos.turn);(chk?SFX.check:cap?SFX.cap:SFX.move)();buzz(chk?[20,40,20]:cap?25:12);
-const an={f:m.f,t:m.t};if(m.ca){const row=m.f>>3;an.ca=1;if((m.t&7)===6){an.rf=row*8+7;an.rt=row*8+5}else{an.rf=row*8;an.rt=row*8+3}}
+const an={f:m.f,t:m.t,slow:bm};if(m.ca){const row=m.f>>3;an.ca=1;if((m.t&7)===6){an.rf=row*8+7;an.rt=row*8+5}else{an.rf=row*8;an.rt=row*8+3}}
 if(G.mode=='pvp'&&G.af)G.flip=pos.turn===-1;
 const st=status(pos,G.reps);if(st)return endGame(st.w,st.why,an);renderAll(an);saveG();
 if(G.mode=='bot'&&pos.turn!==G.pc)botTurn()}
-function botTurn(){if(G.over)return;BUSY=1;renderBars();const g=G;setTimeout(()=>{if(G!==g||G.over){BUSY=0;return}const t0=performance.now(),m=botMove(G.pos,G.lvl),wait=Math.max(0,450-(performance.now()-t0));setTimeout(()=>{if(G!==g){BUSY=0;return}BUSY=0;if(m&&!G.over)doMove(m);else renderBars()},wait)},60)}
+function botTurn(){if(G.over)return;BUSY=1;renderBars();const g=G;setTimeout(()=>{if(G!==g||G.over){BUSY=0;return}const t0=performance.now(),m=botMove(G.pos,G.lvl,G.hist.map(h=>h.p)),wait=Math.max(0,700-(performance.now()-t0));setTimeout(()=>{if(G!==g){BUSY=0;return}BUSY=0;if(m&&!G.over)doMove(m);else renderBars()},wait)},60)}
 /* ---------- soat ---------- */
 function startClock(){clearInterval(TICK);if(!G.tm)return;let last=performance.now();TICK=setInterval(()=>{const now=performance.now(),dt=now-last;last=now;if(!G||G.over||G.pend||G.puz||!$('game').classList.contains('on'))return;if(!G.hist.length)return;
 const i=G.pos.turn===1?0:1;G.clk[i]-=dt;if(G.clk[i]<=0){G.clk[i]=0;const opp=-G.pos.turn;(G.mode=='onl'?onRes:endGame)(insufficientFor(opp)?0:opp,'timeR')}else renderBars()},200)}
@@ -716,7 +802,7 @@ function insufficientFor(col){let n=0;for(let i=0;i<80;i++){const x=G.pos.b[i];i
 function undo(){if(!G||G.over||BUSY||!G.hist.length||G.puz)return toast(t('noundo'));let n=G.mode=='bot'?(G.pos.turn===G.pc?2:1):1;n=Math.min(n,G.hist.length);
 for(let k=0;k<n;k++){const h=G.hist.pop();const key=posKey(G.pos);G.reps[key]=Math.max(0,(G.reps[key]||1)-1);G.pos=h.p}
 G.last=G.hist.length?G.hist[G.hist.length-1].m:null;G.sel=-1;G.hintM=null;G.view=-1;if(G.mode=='pvp'&&G.af)G.flip=G.pos.turn===-1;renderAll();saveG();SFX.move()}
-function hint(){if(!G||G.over||BUSY)return;if(G.mode=='bot'&&G.pos.turn!==G.pc)return;BUSY=1;renderBars();setTimeout(()=>{const m=botMove(G.pos,2);BUSY=0;if(m){G.hintM={f:m.f,t:m.t};G.hints++;G.sel=-1;renderAll();toast(t('hintleft'))}else renderBars()},40)}
+function hint(){if(!G||G.over||BUSY)return;if(G.mode=='bot'&&G.pos.turn!==G.pc)return;BUSY=1;renderBars();setTimeout(()=>{const m=botMove(G.pos,2,G.hist.map(h=>h.p));BUSY=0;if(m){G.hintM={f:m.f,t:m.t};G.hints++;G.sel=-1;renderAll();toast(t('hintleft'))}else renderBars()},40)}
 function flip(){if(!G)return;G.flip=!G.flip;renderAll();saveG()}
 function drawOffer(){if(!G||G.over||G.puz)return;if(G.mode=='onl')return onDraw();if(G.mode=='bot'){const s=cloneP(G.pos);const v=evalPos(s)*(s.turn===G.pc?-1:1);if(v<-150||G.hist.length>=120&&Math.abs(v)<60){endGame(0,'agree')}else toast(t('botno'));return}
 sheet(`<h3>${t('draw')}</h3><p>${t('drawq')}</p><div class="row2"><button class="bt" onclick="closeOv()">${t('no')}</button><button class="bt pri" onclick="closeOv();endGame(0,'agree')">${t('yes')}</button></div>`)}
@@ -934,7 +1020,7 @@ let n=G.mode=='bot'?(G.pos.turn===G.pc?2:1):1;n=Math.min(n,G.hist.length);
 for(let k=0;k<n;k++){const h=G.hist.pop();const key=posKey(G.pos);G.reps[key]=Math.max(0,(G.reps[key]||1)-1);G.pos=h.p}
 G.last=G.hist.length?G.hist[G.hist.length-1].m:null;G.sel=-1;G.hintM=null;G.view=-1;if(G.mode=='pvp'&&G.af)G.flip=G.pos.turn===-1;if(paid){ST.inv.u--;save()}cdSet('u');renderAll();saveG();SFX.move()}
 function hint(){if(!G||G.over||BUSY||G.mode=='onl')return;if(G.mode=='bot'&&G.pos.turn!==G.pc)return;const l=cdLeft('h');if(l)return toast('⏳ '+t('cdw',l));const paid=paidK('h');if(paid&&!(ST.inv.h>0))return needBuy('h');
-BUSY=1;renderBars();setTimeout(()=>{const m=botMove(G.pos,2);BUSY=0;if(m){G.hintM={f:m.f,t:m.t};G.hints++;G.sel=-1;if(paid){ST.inv.h--;save()}cdSet('h');renderAll();if(G.mode=='bot')toast(t('hintleft'))}else renderBars()},40)}
+BUSY=1;renderBars();setTimeout(()=>{const m=botMove(G.pos,2,G.hist.map(h=>h.p));BUSY=0;if(m){G.hintM={f:m.f,t:m.t};G.hints++;G.sel=-1;if(paid){ST.inv.h--;save()}cdSet('h');renderAll();if(G.mode=='bot')toast(t('hintleft'))}else renderBars()},40)}
 const PACKS=[['u',5,25],['u',15,60],['h',5,35],['h',15,90]];
 function buyInv(i){const [k,n,p]=PACKS[i];if((ST.coins||0)<p){SFX.err();buzz([40,40]);return toast(t('nocoin'))}ST.coins-=p;ST.inv[k]=(ST.inv[k]||0)+n;save();SFX.end();toast(t('bought'));shop(2);homeUI();cdUI()}
 /* ---------- onlayn ---------- */
