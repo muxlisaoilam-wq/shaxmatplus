@@ -126,7 +126,7 @@ html[data-th=gold] .mode.pri,html[data-th=gold] .bt.pri,html[data-th=gold] .bigp
 #splash{justify-content:center;background:radial-gradient(90% 60% at 50% 40%,#2c241a,#0d0b09 75%);color:#f4ecdc}
 .spl{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(80vw,360px)}
 .spg{width:min(42vw,170px);height:min(42vw,170px);animation:spf 2.2s ease-in-out infinite alternate}@keyframes spf{from{transform:translateY(0)}to{transform:translateY(-10px)}}
-.spt{font-size:34px;margin:0;color:#f4ecdc}.spt span,h1 span,.brand span{color:#e3b44a}
+.spt{font-size:34px;margin:0;color:#f4ecdc}.spt span,h1 span,.brand span{color:#43a047}
 .spb{width:100%;height:10px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
 .spb i{display:block;height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,#9a6a12,#e3b44a,#fff2b8);box-shadow:0 0 12px rgba(227,180,74,.7)}
 #spn{font-variant-numeric:tabular-nums;color:#e3b44a;font-size:18px}
@@ -551,6 +551,12 @@ html[data-th=light] #ov{background:rgba(30,30,20,.32)}
 .rvr b{text-align:center;font-size:15px;font-variant-numeric:tabular-nums}.rvr .qb{width:24px;height:24px;font-size:11px}.rvn{font-weight:700;font-size:14px}
 @media (max-height:760px){.rvb>button{width:34px;height:34px}}
 </style><script async src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>/* v5.1: logo va 8×10 yozuvi olib tashlandi; Onlayn eng tepada */.brand b{font-size:24px}</style>
+<style>/* v5.1: maslahat ramkasiz */#play .tipc{border:0!important;background:none!important;box-shadow:none!important}</style>
+<style>/* v5.1: "Plus" har doim yashil */.spt span,h1 span,.brand span,.brand b span{color:#43a047!important}</style>
+<style>/* v5.1: Turnir — tez orada */.c5{--mg:linear-gradient(135deg,#f0b04a,#c06d12);--md:#7a4208;--ac:#e8a33d}.live.soon{background:color-mix(in srgb,#e8a33d 14%,var(--bg2));border-color:color-mix(in srgb,#e8a33d 45%,transparent);text-transform:uppercase}.live.soon em{font-style:normal}.live.soon i{background:#ffb547;animation:lvs 1.6s infinite}@keyframes lvs{0%{box-shadow:0 0 0 0 rgba(255,181,71,.7)}70%{box-shadow:0 0 0 8px rgba(255,181,71,0)}100%{box-shadow:0 0 0 0 rgba(255,181,71,0)}}</style>
+<style>/* v5.1: yuklanish yashil */.spb i{background:linear-gradient(90deg,#1b5e20,#43a047,#a5d6a7)!important;box-shadow:0 0 12px rgba(67,160,71,.7)!important}#spn{color:#43a047!important}</style>
+<style>/* v5.1: Botga qarshi — Ta'minotchi ichi oq, cheti yashil */.hart .h2{fill:#fff!important;stroke:#2e7d32!important;color:#2e7d32!important;stroke-width:2.4px}</style>
 </head><body>
 <svg width="0" height="0" style="position:absolute"><defs>
 <!-- figuralar: o'zimiz chizgan yassi uslub, viewBox 0 0 100 100 -->
@@ -576,7 +582,7 @@ html[data-th=light] #ov{background:rgba(30,30,20,.32)}
 
 <!-- ===== BOSH SAHIFA ===== -->
 <div class="scr" id="home"><div class="wrap">
-<div class="top"><div class="brand"><div class="bl"><svg viewBox="0 0 100 100" class="gpc"><defs><linearGradient id="gg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#e3b44a"/><stop offset="1" stop-color="#9a6a12"/></linearGradient></defs><use href="#pF" fill="url(#gg3)" stroke="#6b4a0e" stroke-width="1.6"/></svg></div><div><b>Shaxmat <span>Plus</span></b><small data-t="tag"></small></div></div><div class="lang" id="langs"></div></div>
+<div class="top"><div class="brand"><div><b>Shaxmat <span>Plus</span></b></div></div><div class="lang" id="langs"></div></div>
 <div class="chips" id="hch"></div>
 <div class="heroB"><div class="hbg"></div><div class="hpc"><svg viewBox="0 0 100 100" class="gpc"><defs><linearGradient id="gg4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#e3b44a"/><stop offset="1" stop-color="#9a6a12"/></linearGradient></defs><use href="#pF" fill="url(#gg4)" stroke="#6b4a0e" stroke-width="1.6"/></svg></div><div class="htx"><small data-t="newpc"></small><b data-t="taminot"></b><span data-t="taminotd"></span></div></div>
 <button class="mode" id="hcont" style="display:none" onclick="resume()"><div class="mi o"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div><b data-t="cont"></b><small id="hcs"></small></div><svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
@@ -595,11 +601,11 @@ html[data-th=light] #ov{background:rgba(30,30,20,.32)}
 <!-- ===== BOSHLASH: rejimlar ===== -->
 <div class="scr" id="play"><div class="wrap">
 <div class="gbar"><button class="ib" onclick="show('home')" aria-label="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button><div class="tt" data-t="pickmode"></div><div style="width:42px"></div></div>
-<div class="pstrip" id="mhd"></div>
+<button class="mhero c4 slim" onclick="online()"><span class="hti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3c-2.6 2.6-3.8 5.6-3.8 9s1.2 6.4 3.8 9"/></svg></span><div class="hx"><b data-t="onl"></b><small data-t="onld"></small></div><span class="live"><i></i>LIVE</span></button>
 <button class="mhero c1" onclick="setup('bot')"><div class="hx"><span class="hti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 8V4M9 13h.01M15 13h.01M9 16h6"/></svg></span><b data-t="vsbot"></b><small data-t="vsbotd"></small><div class="mchips"><i>🏆 Elo</i><i class="g" id="mch1"></i></div></div><div class="hart"><svg viewBox="0 0 100 100"><use href="#pK"/></svg><svg viewBox="0 0 100 100" class="h2"><use href="#pF"/></svg></div></button>
 <div class="duo"><button class="tcard c2" onclick="setup('pvp')"><span class="hti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="10" r="2.8"/><path d="M3 20a6 6 0 0 1 12 0M14 20a4.5 4.5 0 0 1 8 0"/></svg></span><b data-t="pvp"></b><small data-t="pvpd"></small><div class="mchips"><i>📱 1×2</i></div></button>
 <button class="tcard c3" onclick="setup('blitz')"><span class="hti"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg></span><b data-t="blitz"></b><small data-t="blitzd"></small><div class="mchips"><i class="g" id="mch3"></i></div></button></div>
-<button class="mhero c4 slim" onclick="online()"><span class="hti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3c-2.6 2.6-3.8 5.6-3.8 9s1.2 6.4 3.8 9"/></svg></span><div class="hx"><b data-t="onl"></b><small data-t="onld"></small></div><span class="live"><i></i>LIVE</span></button>
+<button class="mhero c5 slim" onclick="toast('🏆 '+t('tour')+' — '+t('soon'))"><span class="hti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 6h3a3 3 0 0 1-3 4M7 6H4a3 3 0 0 0 3 4"/></svg></span><div class="hx"><b data-t="tour"></b><small data-t="tourd"></small></div><span class="live soon"><i></i><em data-t="soon"></em></span></button>
 <div class="card tipc"><div class="tpi"><svg viewBox="0 0 100 100" class="gpc"><defs><linearGradient id="gg5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2b8"/><stop offset=".45" stop-color="#e3b44a"/><stop offset="1" stop-color="#9a6a12"/></linearGradient></defs><use href="#pF" fill="url(#gg5)" stroke="#6b4a0e" stroke-width="1.6"/></svg></div><div><b data-t="tipT"></b><span id="tipx"></span></div></div>
 </div></div>
 
@@ -830,7 +836,7 @@ blitz:["Blitz","Блиц","Blitz","بليتز","闪电战","ब्लिट्�
 blitzd:["1+1 · 3+2 · 5+3 daqiqa","1+1 · 3+2 · 5+3 минут","1+1 · 3+2 · 5+3 minutes","1+1 · 3+2 · 5+3 دقائق","1+1 · 3+2 · 5+3 分钟","1+1 · 3+2 · 5+3 मिनट"],
 onl:["Onlayn","Онлайн","Online","أونلاين","在线","ऑनलाइन"],
 onld:["Butun dunyo bilan","Со всем миром","Play the world","العب مع العالم","与全世界对战","दुनिया से खेलें"],
-soon:["Tez orada","Скоро","Soon","قريبًا","即将推出","जल्द"],
+soon:["Tez orada","Скоро","Soon","قريبًا","即将推出","जल्द"],tour:["Turnir","Турнир","Tournament","البطولة","锦标赛","टूर्नामेंट"],tourd:["Ko‘p o‘yinchi · 1-o‘rin uchun kurash","Много игроков · борьба за 1-е место","Many players · fight for 1st place","لاعبون كثيرون · تنافس على المركز الأول","多人参赛 · 争夺第一名","कई खिलाड़ी · पहले स्थान की होड़"],
 onlTxt:["Onlayn rejim tayyorlanmoqda: tez orada do‘stingizni havola orqali chaqirib, boshqa telefonda o‘ynay olasiz.\n\nHozircha “Ikki kishilik” yoki “Blitz”ni o‘ynang.","Онлайн-режим готовится: скоро можно будет позвать друга по ссылке и играть на разных телефонах.\n\nПока играйте вдвоём или в Блиц.","Online mode is coming: soon you can invite a friend by link and play on different phones.\n\nFor now, play Two players or Blitz.","وضع الأونلاين قيد التحضير: قريبًا يمكنك دعوة صديق برابط واللعب على هاتفين.\n\nحاليًا العب «لاعبان» أو «بليتز».","在线模式即将推出：很快可以通过链接邀请好友在不同手机上对战。\n\n现在请先玩双人或闪电战。","ऑनलाइन मोड जल्द आ रहा है: लिंक से दोस्त को बुलाकर अलग फ़ोन पर खेल सकेंगे।\n\nअभी दो खिलाड़ी या ब्लिट्ज़ खेलें।"],
 undo:["Orqaga","Назад","Undo","تراجع","悔棋","वापस"],hint:["Maslahat","Подсказка","Hint","تلميح","提示","संकेत"],flip:["Burish","Перевернуть","Flip","قلب","翻转","पलटें"],draw:["Durang","Ничья","Draw","تعادل","和棋","ड्रॉ"],resign:["Taslim","Сдаться","Resign","استسلام","认输","हार मानें"],
 wins:["G‘alaba","Победы","Wins","انتصارات","胜","जीत"],losses:["Mag‘lubiyat","Поражения","Losses","هزائم","负","हार"],draws:["Durang","Ничьи","Draws","تعادلات","和","ड्रॉ"],
@@ -879,7 +885,7 @@ lhint:["Natijalaringiz saqlanishi va reytingda qatnashish uchun kiring","Вой�
 gsign:["Google bilan kirish","Войти через Google","Sign in with Google","الدخول عبر Google","使用Google登录","Google से साइन इन"],
 tgsign:["Telegram orqali kirish","Войти через Telegram","Sign in with Telegram","الدخول عبر Telegram","通过Telegram登录","Telegram से साइन इन"],
 guest:["Mehmon","Гость","Guest","ضيف","游客","मेहमान"],
-gnote:["Mehmon natijalari shu telefonda saqlanadi","Прогресс гостя хранится на этом телефоне","Guest progress is stored on this phone","تقدّم الضيف محفوظ على هذا الهاتف","游客进度保存在本机","मेहमान की प्रगति इसी फ़ोन पर रहती है"],
+gsoWarn:["Mehmon sifatida chiqsangiz, natijalaringiz (reyting, tangalar, statistika, xaridlar) o‘chib ketadi. Saqlab qolish uchun avval Google bilan kiring.","Если выйти из гостевого режима, ваш прогресс (рейтинг, монеты, статистика, покупки) будет удалён. Чтобы сохранить его, сначала войдите через Google.","If you sign out as a guest, your progress (rating, coins, stats, purchases) will be deleted. Sign in with Google first to keep it.","إذا سجّلت الخروج كضيف فسيُحذف تقدّمك (التصنيف والعملات والإحصاءات والمشتريات). سجّل الدخول عبر Google أولًا للاحتفاظ به.","以游客身份退出后，你的进度（等级分、金币、统计、购买）将被删除。请先用Google登录以保留进度。","मेहमान के रूप में साइन आउट करने पर आपकी प्रगति (रेटिंग, सिक्के, आँकड़े, खरीदारी) मिट जाएगी। इसे रखने के लिए पहले Google से साइन इन करें।"],gsoGo:["Baribir chiqish","Всё равно выйти","Sign out anyway","الخروج على أي حال","仍然退出","फिर भी साइन आउट"],gnote:["Mehmon natijalari shu telefonda saqlanadi","Прогресс гостя хранится на этом телефоне","Guest progress is stored on this phone","تقدّم الضيف محفوظ على هذا الهاتف","游客进度保存在本机","मेहमान की प्रगति इसी फ़ोन पर रहती है"],
 signout:["Akkauntdan chiqish","Выйти из аккаунта","Sign out","تسجيل الخروج","退出登录","साइन आउट"],
 signed:["Kirdingiz: #","Вход: #","Signed in: #","تم الدخول: #","已登录：#","साइन इन: #"],
 noNet:["Internet yoki kirish kerak","Нужен интернет или вход","Internet or sign-in needed","يلزم الإنترنت أو تسجيل الدخول","需要网络或登录","इंटरनेट या साइन इन चाहिए"],
@@ -1090,7 +1096,7 @@ function anonIn(){return fbLoad().then(fb=>fb.auth().currentUser||fb.auth().sign
 function authBoot(){if(!ST.login||!navigator.onLine)return;fbLoad().then(fb=>{fb.auth().onAuthStateChanged(u=>{if(u){FU=u;cloudPull()}else if(ST.login!='g')anonIn().catch(()=>{})})}).catch(()=>{})}
 function cloudDeb(){if(!FU||!ST.login)return;clearTimeout(CDT);CDT=setTimeout(cloudPush,1500)}
 function cloudPush(){if(!FU||!ST.login||ST.upd<=PUSHED)return;const d=Object.assign({},ST);delete d.login;PUSHED=ST.upd;firebase.database().ref('sp_users/'+FU.uid).set({d:JSON.stringify(d),upd:ST.upd}).catch(()=>{PUSHED=0})}
-function cloudPull(){if(!FU)return Promise.resolve();return firebase.database().ref('sp_users/'+FU.uid).once('value').then(s=>{const v=s.val();if(v&&v.upd>ST.upd){try{const d=JSON.parse(v.d);delete d.login;Object.assign(ST,d);ST.upd=v.upd;PUSHED=v.upd;save(1);applyLook();applyLang();homeUI()}catch(e){}}else cloudDeb();syncLB()}).catch(()=>{})}
+function cloudPull(){if(!FU)return Promise.resolve();return firebase.database().ref('sp_users/'+FU.uid).once('value').then(s=>{const v=s.val();/* v5.1: toza holat yoki boshqa Google akkaunt — bulut ustun */if(ST.login=='g'&&ST.gid&&ST.gid!==FU.uid){const L=ST.login;clearProgress();ST.login=L}const fresh=ST.fresh==1;delete ST.fresh;if(ST.login=='g')ST.gid=FU.uid;if(v&&(fresh||v.upd>ST.upd)){try{const d=JSON.parse(v.d);delete d.login;Object.assign(ST,d);ST.upd=v.upd;PUSHED=v.upd;save(1);applyLook();applyLang();homeUI()}catch(e){}}else cloudDeb();syncLB()}).catch(()=>{})}
 function syncLB(){if(!FU||!ST.login||!(ST.st.rg>0))return;firebase.database().ref('sp_lb/'+FU.uid).set({n:(ST.nm||t('guest')).slice(0,16),r:ST.elo,w:ST.st.w||0,g:ST.st.rg||0,via:ST.login,at:firebase.database.ServerValue.TIMESTAMP}).catch(()=>{})}
 /* ---------- kirish ---------- */
 function tgUser(){const W=window.Telegram&&Telegram.WebApp;return (W&&W.initDataUnsafe&&W.initDataUnsafe.user)||null}
@@ -1100,7 +1106,12 @@ function loginT(){const U=tgUser();if(U){ST.tgid=U.id;anonIn().then(u=>{FU=u}).c
 if(!navigator.onLine)return toast(t('noNet'));sheet(`<h3>✈️ ${t('tgsign')}</h3><p>${t('tgweb')}</p><div id="tgw" style="display:flex;justify-content:center;min-height:52px"></div><button class="bt" onclick="closeOv()">${t('cancel')}</button>`);
 window.tgOnAuth=u=>{ST.tgid=u.id;anonIn().then(x=>{FU=x}).catch(()=>{}).then(()=>afterLogin('t',u.first_name||u.username||'Telegram'))};const s=document.createElement('script');s.async=true;s.src='https://telegram.org/js/telegram-widget.js?22';s.setAttribute('data-telegram-login',TG_BOT);s.setAttribute('data-size','large');s.setAttribute('data-radius','14');s.setAttribute('data-onauth','tgOnAuth(user)');s.onerror=()=>toast(t('noNet'));$('tgw').appendChild(s)}
 function loginM(){afterLogin('m');if(navigator.onLine)anonIn().then(u=>{FU=u;syncLB()}).catch(()=>{})}
-function signOut(){closeOv();try{if(FB)firebase.auth().signOut()}catch(e){}FU=null;ST.login=null;save(1);show('login')}
+/* v5.1: akkauntdan chiqish — avval bulutga saqlash, keyin telefondagi natijalarni tozalash (sozlamalar qoladi) */
+function signOut(){if(ST.login!='g'){sheet(`<h3>${t('signout')}</h3><p style="color:var(--mut);line-height:1.45">${t('gsoWarn')}</p><button class="bt pri" style="width:100%" onclick="closeOv();loginG()">${t('gsign')}</button><div style="height:8px"></div><button class="bt red" style="width:100%" onclick="closeOv();finishSO()">${t('gsoGo')}</button>`);return}
+closeOv();if(!navigator.onLine)return toast(t('noNet'));flushCloud().then(ok=>ok?finishSO():toast(t('noNet')))}
+function flushCloud(){if(!FU||!ST.login)return Promise.resolve(true);clearTimeout(CDT);const d=Object.assign({},ST);delete d.login;return Promise.race([firebase.database().ref('sp_users/'+FU.uid).set({d:JSON.stringify(d),upd:ST.upd}).then(()=>{PUSHED=ST.upd;return true}),new Promise(r=>setTimeout(()=>r(false),4000))]).catch(()=>false)}
+function finishSO(){try{if(FB)firebase.auth().signOut()}catch(e){}FU=null;clearProgress();save(1);try{applyLook();applyLang()}catch(e){}show('login')}
+function clearProgress(){const K=['lg','mq','th','snd','vib','co','dots'],n={lg:0,mq:1,th:'gold',bd:'green',ps:'classic',snd:1,vib:1,co:1,dots:1,st:{},pz:0,coins:0,elo:1200,own:{b:['green'],p:['classic']},inv:{u:5,h:5},login:null,nm:'',upd:0,fresh:1};K.forEach(k=>{if(ST[k]!=null)n[k]=ST[k]});Object.keys(ST).forEach(k=>delete ST[k]);Object.assign(ST,n);PUSHED=0;try{localStorage.removeItem('sp_g')}catch(e){}}
 function avatarH(sz){const n=(ST.nm||'?').trim(),c=['#2f6b2f','#c2922a','#3a7ea9','#b0213a','#7a4a1f','#6b4bd6'][(n.charCodeAt(0)||0)%6];return `<span class="ava" style="background:${c};width:${sz}px;height:${sz}px;font-size:${sz*.45}px">${n.charAt(0).toUpperCase()}</span>`}
 function account(){const via=ST.login=='g'?'Google':ST.login=='t'?'Telegram':t('guest'),S=ST.st;
 sheet(`<div class="acc">${avatarH(64)}<div><input id="nmI" maxlength="16" value="${(ST.nm||'').replace(/"/g,'')}" onchange="ST.nm=this.value.trim().slice(0,16)||ST.nm;save();syncLB();homeUI()"><small>${via}${ST.login=='m'?' · '+t('gnote'):''}</small></div></div>
@@ -1134,7 +1145,7 @@ sheet(`<h3>${t('settings')}</h3><div class="opt" onclick="langBox()" style="curs
 /* ---------- o'yin haqida ---------- */
 function about(){const P=L3.pcs[ST.lg]||L3.pcs[2],ord=[6,5,2,4,3,7,1];
 const pt=ord.map((ty,k)=>{const s=P[k],i=s.indexOf(':');const d=s.slice(i+1).trim();return `<div class="pv">${pieceSVG(ty)}</div><div><b>${s.slice(0,i)}</b>${d.charAt(0).toLocaleUpperCase()+d.slice(1)}</div>`}).join('');
-sheet(`<div class="ab"><div style="display:flex;align-items:center;gap:12px"><div style="width:64px;height:64px">${document.querySelector('.gpc').outerHTML.replace(/gg\d+/g,'ggA')}</div><div><h3 style="margin:0">Shaxmat <span style="color:var(--pri)">Plus</span></h3><small style="color:var(--mut)">${t('ver')}</small></div></div>
+sheet(`<div class="ab"><div style="display:flex;align-items:center;gap:12px"><div style="width:64px;height:64px">${document.querySelector('.gpc').outerHTML.replace(/gg\d+/g,'ggA')}</div><div><h3 style="margin:0">Shaxmat <span style="color:#43a047">Plus</span></h3><small style="color:var(--mut)">${t('ver')}</small></div></div>
 <h4>${t('ab1t')}</h4><p>${t('ab1x')}</p><h4>${t('ab2t')}</h4><p>${t('ab2x')}</p><h4>${t('ab3t')}</h4><div class="pt">${pt}</div><h4>${t('ab4t')}</h4><p>${t('ab4x')}</p>
 <h4>${t('tipT')}</h4><p>${(L3.tips[ST.lg]||L3.tips[2]).map(x=>'• '+x).join('<br>')}</p></div><button class="bt pri" onclick="closeOv()">${t('close')}</button>`)}
 function rules(){about()}
